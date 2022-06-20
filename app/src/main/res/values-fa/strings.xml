@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="external">خارجی</string>
+    <string name="app_name">مدیریت فایل نیک</string>
+    <string name="storage">حافظه</string>
+    <string name="files">فایل ها</string>
+    <string name="internal">داخلی</string>
+    <string name="used">مصرف شده</string>
+    <string name="free">آزاد</string>
+    <string name="items">تعداد</string>
+    <string name="recent_files">فایل های اخیر</string>
+    <string name="explore">اکسپلور</string>
+
+    <string name="access_storage_prompt">لطفا دسترسی لازم به فایل های دستگاه را فراهم کنید.بدون آن برنامه به درستی کار نمی کند!</string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+    <string name="unknownError">خطا نامشخص رخ داده!</string>
+    <string name="search">جست و جو در این پوشه</string>
+    <string name="numbersSelected">%s انتخاب شده</string>
+    <string name="enter_name">نام را وارد کنید.</string>
+    <string name="folder">پوشه</string>
+    <string name="file">فایل</string>
+    <string name="submit">انجام</string>
+    <string name="nullNameError">نام فایل نباید خالی باشد.</string>
+    <string name="folderSucessFull">ساخت پوشه موفقیت آمیز بود</string>
+    <string name="folderCreateFailed">ساخت پوشه ناموفق بود</string>
+    <string-array name="alertHistorySorts">
+        <item>درونی</item>
+        <item>بیرونی</item>
+    </string-array>
+</resources>

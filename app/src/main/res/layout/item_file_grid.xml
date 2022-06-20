@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="file"
+            type="java.io.File" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:clickable="true"
+        android:focusable="true"
+        android:checkable="true"
+        android:id="@+id/materialContainer"
+        android:layout_margin="@dimen/_8sdp"
+        android:background="@drawable/bg_corner_4sdp"
+        android:layout_width="@dimen/_86sdp"
+        android:layout_height="@dimen/_86sdp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:background="@color/unUsed"
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                app:setIconDrawable="@{file}"
+                android:id="@+id/icon"
+                android:layout_marginTop="@dimen/_8sdp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:srcCompat="@drawable/ic_folder"
+                android:layout_width="@dimen/_36sdp"
+                android:layout_height="@dimen/_36sdp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                app:compressFileName="@{file.name}"
+                android:textAppearance="?textAppearanceCaption"
+                app:layout_constraintStart_toStartOf="@id/icon"
+                app:layout_constraintEnd_toEndOf="@+id/icon"
+                app:layout_constraintTop_toBottomOf="@+id/icon"
+                android:id="@+id/txtName"
+                tools:text="folder Name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                app:setNumberOfFiles="@{file}"
+                tools:text="112 items"
+                app:layout_constraintStart_toStartOf="@+id/txtName"
+                app:layout_constraintEnd_toEndOf="@+id/txtName"
+                android:id="@+id/children"
+                app:layout_constraintTop_toBottomOf="@+id/txtName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

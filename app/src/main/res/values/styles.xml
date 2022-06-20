@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="searchEditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:hint">@string/search</item>
+        <item name="android:textColorHint">@color/textColorHint</item>
+        <item name="android:background">@drawable/background_et_search</item>
+        <item name="android:textColor">@color/textColorSearch</item>
+        <item name="android:textAppearance">?textAppearanceCaption</item>
+    </style>
+
+
+</resources>

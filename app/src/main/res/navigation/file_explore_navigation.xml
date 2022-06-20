@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/file_explore_navigation"
+    app:startDestination="@id/fileExploringFragment">
+
+    <fragment
+        tools:layout="@layout/fragment_file_exploring"
+        android:id="@+id/fileExploringFragment"
+        android:name="com.android.filemanager.features.explore.FileExploringFragment"
+        android:label="FileExploringFragment">
+        <argument
+            android:defaultValue="@null"
+            android:name="path"
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_fileExploringFragment_self"
+            app:destination="@id/fileExploringFragment" />
+    </fragment>
+</navigation>

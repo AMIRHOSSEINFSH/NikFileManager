@@ -1,3 +1,28 @@
 <resources>
-    <string name="app_name">FileManager</string>
+    <string name="app_name">NikFileManager</string>
+    <string name="storage">Storage</string>
+    <string name="external">External</string>
+    <string name="files">Files</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="access_storage_prompt">Please grant our app access to all your files, it might not work well without it.</string>
+    <string name="internal">internal</string>
+    <string name="used">Used</string>
+    <string name="free">Free</string>
+    <string name="items">items</string>
+    <string name="recent_files">Recent Files</string>
+    <string name="explore">Explore</string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+    <string name="unknownError">Unknown Error Occurred</string>
+    <string name="search">search in this directory</string>
+    <string name="numbersSelected">%s selected</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="enter_name">Enter Name</string>
+    <string name="folder">Folder</string>
+    <string name="file">file</string>
+    <string name="submit">Submit</string>
+    <string name="nullNameError">File Name must not be empty</string>
+    <string name="folderSucessFull">create folder is SuccessFull</string>
+    <string name="folderCreateFailed">Creating folder was Failed</string>
 </resources>

@@ -7,4 +7,16 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="textColorHint">@color/grayTv</color>
+    <color name="grayTv">@color/boulder</color>
+    <color name="colorBgSearch">@color/blue_grey_900</color>
+    <color name="textColorSearch">@color/black</color>
+
+
+    <color name="blue_grey_900">#CBCED1</color>
+    <color name="boulder">#7A7A7A</color>
+    <color name="background_color">#f6f6f6</color>
+    <color name="button_selected">#fc7855</color>
+    <color name="unUsed">#dddee6</color>
+    <color name="txtColor">#817c9c</color>
 </resources>

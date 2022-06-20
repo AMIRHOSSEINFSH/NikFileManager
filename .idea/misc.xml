@@ -3,8 +3,31 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/android_projects/FileManager/app/src/main/res/drawable-v24/background_et_search.xml" value="0.1635" />
+        <entry key="..\:/android_projects/FileManager/app/src/main/res/drawable-v24/circular_progress.xml" value="0.1725" />
+        <entry key="..\:/android_projects/FileManager/app/src/main/res/drawable/bg_boxes.xml" value="0.1575" />
+        <entry key="..\:/android_projects/FileManager/app/src/main/res/drawable/bg_corner_4sdp.xml" value="0.166" />
+        <entry key="..\:/android_projects/FileManager/app/src/main/res/drawable/dialog_rounded_bg.xml" value="0.1775" />
+        <entry key="..\:/android_projects/FileManager/app/src/main/res/drawable/gradient_bg.xml" value="0.166" />
+        <entry key="..\:/android_projects/FileManager/app/src/main/res/drawable/ic_baseline_create_new_folder_24.xml" value="0.1635" />
+        <entry key="..\:/android_projects/FileManager/app/src/main/res/drawable/ic_create_folder.xml" value="0.1635" />
+        <entry key="..\:/android_projects/FileManager/app/src/main/res/drawable/ic_grid_24dp.xml" value="0.1635" />
+        <entry key="..\:/android_projects/FileManager/app/src/main/res/drawable/ic_icons8_image_file.xml" value="0.1635" />
+        <entry key="..\:/android_projects/FileManager/app/src/main/res/drawable/ic_icons8_music.xml" value="0.1635" />
+        <entry key="..\:/android_projects/FileManager/app/src/main/res/drawable/ic_linear_24dp.xml" value="0.1635" />
+        <entry key="..\:/android_projects/FileManager/app/src/main/res/drawable/ic_txt.xml" value="0.1635" />
+        <entry key="..\:/android_projects/FileManager/app/src/main/res/drawable/ic_txt_file.xml" value="0.1635" />
+        <entry key="..\:/android_projects/FileManager/app/src/main/res/drawable/tab_bg.xml" value="0.166" />
+        <entry key="..\:/android_projects/FileManager/app/src/main/res/drawable/tab_selected.xml" value="0.166" />
         <entry key="..\:/android_projects/FileManager/app/src/main/res/font/font.xml" value="0.2515625" />
-        <entry key="..\:/android_projects/FileManager/app/src/main/res/layout/activity_main.xml" value="0.22239583333333332" />
+        <entry key="..\:/android_projects/FileManager/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/android_projects/FileManager/app/src/main/res/layout/fragment_create_file.xml" value="0.2" />
+        <entry key="..\:/android_projects/FileManager/app/src/main/res/layout/fragment_file_exploring.xml" value="0.22239583333333332" />
+        <entry key="..\:/android_projects/FileManager/app/src/main/res/layout/fragment_files.xml" value="0.264" />
+        <entry key="..\:/android_projects/FileManager/app/src/main/res/layout/fragment_storage.xml" value="0.264" />
+        <entry key="..\:/android_projects/FileManager/app/src/main/res/layout/item_file_grid.xml" value="0.22239583333333332" />
+        <entry key="..\:/android_projects/FileManager/app/src/main/res/layout/item_file_linear.xml" value="0.22239583333333332" />
+        <entry key="..\:/android_projects/FileManager/app/src/main/res/layout/recent_file_grid.xml" value="0.2" />
       </map>
     </option>
   </component>

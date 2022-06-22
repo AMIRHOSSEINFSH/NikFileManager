@@ -49,36 +49,43 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_main_settings"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:layout_marginStart="@dimen/_16sdp"
+        <androidx.constraintlayout.widget.ConstraintLayout
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/ic_baseline_settings_24"
-            android:layout_width="@dimen/_24sdp"
-            android:layout_height="@dimen/_24sdp" />
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_main_settings"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginStart="@dimen/_16sdp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@drawable/ic_baseline_settings_24"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_main_search"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:layout_marginEnd="@dimen/_16sdp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_baseline_search_24"
-            android:layout_width="@dimen/_24sdp"
-            android:layout_height="@dimen/_24sdp" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_main_search"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_16sdp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/ic_baseline_search_24"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/fileManagerName"
-            android:textAppearance="?textAppearanceHeadline5"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_main_search"
-            app:layout_constraintStart_toEndOf="@+id/iv_main_settings"
-            app:layout_constraintEnd_toStartOf="@+id/iv_main_search"
-            app:layout_constraintTop_toTopOf="@+id/iv_main_search"
-            android:text="@string/app_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/fileManagerName"
+                android:textAppearance="?textAppearanceHeadline5"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_main_search"
+                app:layout_constraintStart_toEndOf="@+id/iv_main_settings"
+                app:layout_constraintEnd_toStartOf="@+id/iv_main_search"
+                app:layout_constraintTop_toTopOf="@+id/iv_main_search"
+                android:text="@string/app_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <com.google.android.material.tabs.TabLayout
             app:tabTextColor="@color/txtColor"
@@ -90,7 +97,7 @@
             android:layout_marginTop="@dimen/_24sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fileManagerName"
+            app:layout_constraintTop_toBottomOf="@+id/container"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             app:segItemHorizontalMargin="3dp"

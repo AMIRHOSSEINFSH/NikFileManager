@@ -1,7 +1,11 @@
 package com.android.filemanager.core
 
-import androidx.lifecycle.liveData
+import androidx.lifecycle.*
 import com.android.filemanager.R
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.yield
 import java.io.File
 import java.util.*
 
@@ -13,24 +17,57 @@ class StorageHelper {
         } else false
     }
 
-    private var indexDeleted = 0
+    private val fileList = mutableListOf<File>()
+    private val _indexCounter = MutableLiveData(0)
 
-    suspend fun deleteFolderOrFile(files: List<File>) = liveData<Int> {
-        files.forEach {file->
-            deleteRecursive(file)
-            emit(indexDeleted)
+    suspend fun deleteFolderOrFile(
+        files: List<File>,
+        doOnFinished: suspend () -> Unit
+    ) = liveData<Resource<Int>>(Dispatchers.IO) {
+        try {
+            files.forEach { file ->
+                deleteRecursive(file)
+            }
+            if (fileList.isNotEmpty())
+                emit(Resource.Loading(fileList.size))
+            fileList.forEachIndexed { index, file ->
+                yield()
+                val result = file.delete()
+                if (result) {
+                    emit(Resource.Success(index + 1))
+                } else {
+                    emit(Resource.Error(DELETE_FAILED, file.hashCode()))
+                }
+            }
+            files.forEach {
+                deleteRecursiveFolders(it)
+            }
+        } catch (e: Exception) {
+            emit(Resource.Error(e.message ?: DELETE_FAILED))
+        } finally {
+            emit(Resource.Finished())
+            doOnFinished.invoke()
         }
-        indexDeleted = 0
+
     }
 
-    fun deleteRecursive(fileOrDirectory: File) {
-        if (fileOrDirectory.isDirectory) for (child in fileOrDirectory.listFiles()) deleteRecursive(
+    private fun deleteRecursiveFolders(fileOrDirectory: File) {
+        if (fileOrDirectory.isDirectory) for (child in fileOrDirectory.listFiles()!!) deleteRecursiveFolders(
             child
         )
-        if (fileOrDirectory.isFile){
-            fileOrDirectory.delete()
-            indexDeleted++
+        fileOrDirectory.delete()
+    }
+
+    private fun deleteRecursive(fileOrDirectory: File) {
+        if (fileOrDirectory.isDirectory) for (child in fileOrDirectory.listFiles()!!) deleteRecursive(
+            child
+        )
+        if (fileOrDirectory.isFile) {
+            fileList.add(fileOrDirectory)
+            //indexDeleted++
+            // _indexCounter.value = indexDeleted
         }
+        // fileOrDirectory.delete()
     }
 
 

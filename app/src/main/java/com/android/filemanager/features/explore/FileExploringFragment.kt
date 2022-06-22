@@ -1,17 +1,10 @@
 package com.android.filemanager.features.explore
 
-import android.Manifest
-import android.content.Context
-import android.content.pm.PackageManager
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
@@ -23,6 +16,7 @@ import com.android.filemanager.databinding.FragmentFileExploringBinding
 import com.android.filemanager.features.files.FileListAdapter
 import com.android.filemanager.features.storage.StorageViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.File
 
 
 @AndroidEntryPoint
@@ -36,7 +30,9 @@ class FileExploringFragment :
 
     private val fileExploreAdapter by lazy {
         FileListAdapter(itemClicked = { fileModel ->
-            val shouldNavigate = viewModel.isSelected.value == 0
+            if (fileModel.isDirectory)
+            viewModel.emitOnParentPath(fileModel.path)
+            val shouldNavigate = viewModel.isSelected.value?.isEmpty() ?: true
             if (shouldNavigate) {
                 viewModel.addNewPath(fileModel.name)
                 findNavController().navigate(
@@ -46,7 +42,7 @@ class FileExploringFragment :
             }
             shouldNavigate
         }, itemLongClicked = {
-            viewModel.emitOnViewSelected(it.size)
+            viewModel.emitOnViewSelected(it)
         })
     }
 
@@ -54,7 +50,6 @@ class FileExploringFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.i("LOGOG", "onViewCreated: ${viewModel.toString()}")
         initSetUp()
         setUpPermission()
         setUpAdapters()
@@ -64,9 +59,23 @@ class FileExploringFragment :
             viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    if (findNavController().backQueue.size != 2) {
-                        viewModel.popLastPath()
-                        findNavController().popBackStack()
+                    if (!viewModel.processIsWorking){
+                        //todo if backQueue.size is root so:
+                        if (findNavController().backQueue.size != 2) {
+                            //todo if you are not in root && there are some items that checked it will clear it instead of pop and back navigate
+                            if (viewModel.isSelected.value!!.isNotEmpty()) {
+                                viewModel.emitOnAllViewSelected(true)
+                            }
+                            //todo you are not in root and there is no selected item so just need to pop and back navigate
+                            else{
+                                viewModel.popLastPath()
+                                findNavController().popBackStack()
+                            }
+                        }
+                        //todo you are in root and just need to remove selection
+                        else{
+                            viewModel.emitOnAllViewSelected(true)
+                        }
                     }
                 }
 
@@ -93,9 +102,12 @@ class FileExploringFragment :
 
     private fun setUpObservables() {
         viewModel.fileListLiveData.observe(viewLifecycleOwner) { list ->
-            viewModel.emitOnParentPath(list.first().parent)
-            if (!viewModel.fileInputIsLock)
+
+            if (!viewModel.fileInputIsLock) {
+                if (list.isNotEmpty())
+                    viewModel.emitOnParentPath(list.first().parent)
                 fileExploreAdapter.submitList(list)
+            }
         }
         viewModel.isLinear.observe(viewLifecycleOwner) {
             if (it) {

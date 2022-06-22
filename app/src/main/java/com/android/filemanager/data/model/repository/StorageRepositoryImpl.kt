@@ -3,13 +3,17 @@ package com.android.filemanager.data.model.repository
 import android.os.Environment
 import android.os.StatFs
 import androidx.lifecycle.LiveData
+import com.android.filemanager.core.Resource
 import com.android.filemanager.core.StorageHelper
 import com.android.filemanager.data.model.dao.FileDao
 import com.android.filemanager.data.model.dataClass.FileModel
 import java.io.File
 import javax.inject.Inject
 
-class StorageRepositoryImpl @Inject constructor(private val dao: FileDao,private val storageHelper: StorageHelper) : StorageRepository {
+class StorageRepositoryImpl @Inject constructor(
+    private val dao: FileDao,
+    private val storageHelper: StorageHelper
+) : StorageRepository {
 
     override fun externalMemoryAvailable(): Boolean =
         Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)
@@ -71,13 +75,16 @@ class StorageRepositoryImpl @Inject constructor(private val dao: FileDao,private
         return File(path).listFiles()?.size ?: 0
     }
 
-    override fun createFolder(path: String, name: String):Boolean = storageHelper.createFolder(path,name)
+    override fun createFolder(path: String, name: String): Boolean =
+        storageHelper.createFolder(path, name)
 
-    override suspend fun deleteFileOrFolder(paths: List<File>): LiveData<Int> = storageHelper.deleteFolderOrFile(paths)
+    override suspend fun deleteFileOrFolder(
+        paths: List<File>,
+        doOnFinised: suspend () -> Unit
+    ): LiveData<Resource<Int>> = storageHelper.deleteFolderOrFile(paths,doOnFinised)
 
 
-
-    override suspend fun getFileList(path: String,counter: Int): List<File> {
+    override suspend fun getFileList(path: String, counter: Int): List<File> {
         return run {
             val list = File(path).listFiles()?.toList().orEmpty()
             list

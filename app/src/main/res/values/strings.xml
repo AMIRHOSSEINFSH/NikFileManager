@@ -25,4 +25,6 @@
     <string name="nullNameError">File Name must not be empty</string>
     <string name="folderSucessFull">create folder is SuccessFull</string>
     <string name="folderCreateFailed">Creating folder was Failed</string>
+    <string name="transferred">transferred</string>
+    <string name="done">Done</string>
 </resources>

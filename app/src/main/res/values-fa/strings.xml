@@ -24,6 +24,8 @@
     <string name="nullNameError">نام فایل نباید خالی باشد.</string>
     <string name="folderSucessFull">ساخت پوشه موفقیت آمیز بود</string>
     <string name="folderCreateFailed">ساخت پوشه ناموفق بود</string>
+    <string name="transferred">انجام شده</string>
+    <string name="done">انجام شد</string>
     <string-array name="alertHistorySorts">
         <item>درونی</item>
         <item>بیرونی</item>

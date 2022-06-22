@@ -5,10 +5,7 @@ import androidx.lifecycle.*
 import com.android.filemanager.core.*
 import com.android.filemanager.domain.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import kotlinx.coroutines.yield
+import kotlinx.coroutines.*
 import java.io.File
 import java.util.*
 import javax.inject.Inject
@@ -29,26 +26,35 @@ class StorageViewModel @Inject constructor(
     private val dataStoreManager: DataStoreManager
 ) : BaseViewModel() {
 
+    var processIsWorking: Boolean = false
+
+    fun emitOnProcessLock(isOnProcess: Boolean): Boolean {
+        processIsWorking = isOnProcess
+        return isOnProcess
+    }
     val isLinear: LiveData<Boolean> = stateHandle.getLiveData(IS_LINEAR, true)
+    private val parentJob = SupervisorJob()
+    private val rootPath = Environment.getExternalStorageDirectory().path
+    private var currentPath: String = rootPath
 
     fun emitOnViewTypeChanged() {
         stateHandle[IS_LINEAR] = isLinear.value?.not() ?: false
     }
 
 
-    private val _isSelected = MutableLiveData(0)
-    val isSelected: LiveData<Int> get() = _isSelected
+    private val _isSelected = MutableLiveData<List<File>>(emptyList())
+    val isSelected: LiveData<List<File>> get() = _isSelected
 
     private val _cancelSelection = MutableLiveData<Boolean>()
     val cancelSelection: LiveData<Boolean> get() = _cancelSelection
 
     fun emitOnClearSelectionList() {
-        emitOnViewSelected(0)
+        emitOnViewSelected(emptyList())
     }
 
-    fun emitOnViewSelected(number: Int) {
-        if (number == 0) _cancelSelection.value = true
-        _isSelected.value = number
+    fun emitOnViewSelected(files: List<File>) {
+        if (files.isEmpty()) _cancelSelection.value = true
+        _isSelected.value = files
     }
 
     private val _shouldClearSelection = MutableLiveData<Boolean>()
@@ -56,10 +62,10 @@ class StorageViewModel @Inject constructor(
 
     fun emitOnAllViewSelected(shouldClear: Boolean) {
         _shouldClearSelection.value = if (shouldClear) {
-            emitOnViewSelected(0)
+            emitOnViewSelected(emptyList())
             true
         } else {
-            emitOnViewSelected(fileListLiveData.value?.size ?: 0)
+            emitOnViewSelected(fileListLiveData.value ?: emptyList())
             false
         }
     }
@@ -78,7 +84,7 @@ class StorageViewModel @Inject constructor(
     private val _pathDirectoryLiveData = MutableLiveData<String>()
     val pathDirectoryLiveData: LiveData<String> get() = _pathDirectoryLiveData
 
-    private val _parentPathLiveData= MutableLiveData<String?>()
+    private val _parentPathLiveData = MutableLiveData<String?>()
     val parentPathLiveData: LiveData<String?> get() = _parentPathLiveData
 
     fun emitOnParentPath(path: String?) {
@@ -87,6 +93,11 @@ class StorageViewModel @Inject constructor(
 
     private val _fileListLiveData = MutableLiveData<List<File>>()
     val fileListLiveData: LiveData<List<File>> get() = _fileListLiveData
+
+    private fun emitOnFileList(list: List<File>,newCurrentPath: String?) {
+        currentPath = newCurrentPath ?: rootPath
+        _fileListLiveData.value = list
+    }
 
     fun getPercentageUsed(): Long {
         val used = getUsedInternal.invoke()
@@ -99,17 +110,18 @@ class StorageViewModel @Inject constructor(
         path: String?
     ) {
         if (listFileStack.getOrNull(order) != null) {
-            _fileListLiveData.value = listFileStack.pop()
+            val list = listFileStack.pop()
+            emitOnFileList(list,list.first().parent)
             return
         }
-        val rootPath = path ?: Environment.getExternalStorageDirectory().path
+        val rootPath = path ?: this.rootPath
         size = getSize.invoke(rootPath)
         viewModelScope.launch(Dispatchers.IO) {
             fileInputIsLock = true
             val list = getFileList.invoke(rootPath, 10)
             withContext(Dispatchers.Main) {
                 fileInputIsLock = false
-                _fileListLiveData.value = list
+                emitOnFileList(list,rootPath)
             }
         }
     }
@@ -143,13 +155,33 @@ class StorageViewModel @Inject constructor(
         }
     }
 
-    private val d =MediatorLiveData<Int>()
-    fun createFolder(path: String, name: String): Boolean = fileIsCreated.invoke(path,name)
+    fun createFolder(path: String, name: String): Boolean = fileIsCreated.invoke(path, name)
 
-    fun deleteFileOrFolder(paths: List<File>) {
-        viewModelScope.launch(Dispatchers.Default) {
-
+    private val shouldDelete = MutableLiveData<Boolean>()
+    val delete: LiveData<Resource<Int>> = shouldDelete.switchMap {
+        liveData {
+            emitOnProcessLock(true)
+            emitSource(
+                fileIsDeleted.invoke(
+                    isSelected.value ?: emptyList()
+                , doOnFinished = {
+                        withContext(Dispatchers.Main){
+                            emitOnProcessLock(false)
+                            emitOnAllViewSelected(true)
+                            getPath(currentPath)
+                        }
+                    })
+            )
         }
+    }
+
+    fun emitOnDelete() {
+        shouldDelete.value = true
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        parentJob.cancel()
     }
 
 }

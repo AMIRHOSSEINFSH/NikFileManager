@@ -1,6 +1,7 @@
 package com.android.filemanager.data.model.repository
 
 import androidx.lifecycle.LiveData
+import com.android.filemanager.core.Resource
 import com.android.filemanager.data.model.dataClass.FileModel
 import java.io.File
 
@@ -14,6 +15,6 @@ interface StorageRepository {
     fun getRecentFilesLiveData(): LiveData<List<FileModel>>
     fun getListSize(path: String): Int
     fun createFolder(path: String,name: String):Boolean
-    suspend fun deleteFileOrFolder(paths: List<File>): LiveData<Int>
+    suspend fun deleteFileOrFolder(paths: List<File>,doOnFinished: suspend ()-> Unit): LiveData<Resource<Int>>
    suspend fun getFileList(path: String,counter: Int): List<File>
 }

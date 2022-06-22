@@ -40,7 +40,6 @@ class CreateFileFragment : DialogFragment() {
         super.onStart()
         dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_rounded_bg)
-
     }
 
     override fun onCreateView(
@@ -49,7 +48,8 @@ class CreateFileFragment : DialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCreateFileBinding.inflate(inflater, container, false)
-        dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_rounded_bg)
         return binding.root
     }
 

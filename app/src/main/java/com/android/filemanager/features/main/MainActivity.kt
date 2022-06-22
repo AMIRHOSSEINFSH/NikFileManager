@@ -14,6 +14,8 @@ import com.android.filemanager.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import android.provider.Settings
+import android.util.Log
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
@@ -31,6 +33,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private val MANAGE_STORAGE_RC = 201
     private var permissionIsChecked = false
     private var isFirstSelect = true
+    private lateinit var viewGroupMargin: ViewGroup.MarginLayoutParams
 
     private val viewModel: StorageViewModel by viewModels()
     private val pagerAdapter: DemoCollectionAdapter by lazy {
@@ -78,7 +81,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        viewGroupMargin = binding.viewPager.layoutParams as ViewGroup.MarginLayoutParams
         viewModel.permissionLiveData.observe(this) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && !permissionIsChecked && !it) {
                 val builder = AlertDialog.Builder(this)
@@ -90,6 +93,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     requestPermission()
                 }
             }
+
+
         }
 
 
@@ -111,7 +116,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private fun setUpObservables() {
         viewModel.cancelSelection.observe(this) {
             binding.selectAll.tag = SELECTALL
-            binding.selectAll.setColorFilter(Color.BLACK,android.graphics.PorterDuff.Mode.SRC_IN)
+            binding.selectAll.setColorFilter(Color.BLACK, android.graphics.PorterDuff.Mode.SRC_IN)
             isFirstSelect = true
             binding.selectedLayout.setHeightResizeAnimator(
                 ANIMATION_TIME_OUT,
@@ -128,50 +133,69 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     private fun setUpListeners() {
-        binding.cancelSelection.setOnClickListener {
-            viewModel.emitOnClearSelectionList()
-            binding.selectedLayout.setHeightResizeAnimator(
-                ANIMATION_TIME_OUT,
-                upLayoutHeight,
-                0,
-                onEnd = { binding.selectedLayout.isVisible = false })
+        binding.apply {
+            cancelSelection.setOnClickListener {
 
-            binding.bottomContainer.setHeightResizeAnimator(
-                ANIMATION_TIME_OUT,
-                downLayoutHeight,
-                0,
-                onEnd = { binding.bottomContainer.isVisible = false })
-        }
+                viewGroupMargin.setMargins(0, 0, 0, 0)
+                viewModel.emitOnClearSelectionList()
+                selectedLayout.setHeightResizeAnimator(
+                    ANIMATION_TIME_OUT,
+                    upLayoutHeight,
+                    0,
+                    onEnd = { selectedLayout.isVisible = false })
 
-        binding.selectAll.setOnClickListener {
+                bottomContainer.setHeightResizeAnimator(
+                    ANIMATION_TIME_OUT,
+                    downLayoutHeight,
+                    0,
+                    onEnd = { bottomContainer.isVisible = false })
+            }
 
-            binding.selectAll.apply {
-                if (tag == SELECTALL){
-                    tag = CLEARALL
-                    setColorFilter(Color.BLUE,android.graphics.PorterDuff.Mode.SRC_IN)
-                    viewModel.emitOnAllViewSelected(false)
-                }else if (tag == CLEARALL){
-                    tag = SELECTALL
-                    setImageDrawable(getDrawable(R.drawable.ic_select_all))
-                    setColorFilter(Color.BLACK,android.graphics.PorterDuff.Mode.SRC_IN)
-                    viewModel.emitOnAllViewSelected(true)
+            selectAll.setOnClickListener {
+
+                selectAll.apply {
+                    if (tag == SELECTALL) {
+                        tag = CLEARALL
+                        setColorFilter(Color.BLUE, android.graphics.PorterDuff.Mode.SRC_IN)
+                        viewModel.emitOnAllViewSelected(false)
+                    } else if (tag == CLEARALL) {
+                        tag = SELECTALL
+                        setImageDrawable(getDrawable(R.drawable.ic_select_all))
+                        setColorFilter(Color.BLACK, android.graphics.PorterDuff.Mode.SRC_IN)
+                        viewModel.emitOnAllViewSelected(true)
+                    }
+
                 }
 
             }
 
+            ivDelete.setOnClickListener {
+                ProgressDialogFragment.newInstance().apply { isCancelable = false }.show(supportFragmentManager,null)
+                viewModel.emitOnDelete()
+            }
+
+            ivCut.setOnClickListener {
+                val intent = Intent()
+                intent
+            }
         }
+
 
     }
 
     private fun setupAnimationSelection() {
         viewModel.isSelected.observe(this) { isSelected ->
-            doOnSelectedLayout(isSelected)
-            binding.number = isSelected.toString()
+            doOnSelectedLayout(isSelected.size)
+            binding.number = isSelected.size.toString()
         }
     }
 
     private fun doOnSelectedLayout(isSelected: Int) {
         if (isSelected == 1 && isFirstSelect) {
+
+            val dimen = resources.getDimension(com.intuit.sdp.R.dimen._80sdp)
+            viewGroupMargin.setMargins(0, 0, 0, dimen.toInt())
+            binding.viewPager.requestLayout()
             isFirstSelect = false
             binding.selectedLayout.setHeightResizeAnimator(
                 ANIMATION_TIME_OUT,
@@ -188,6 +212,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 downLayoutHeight,
                 onStart = { binding.bottomContainer.isVisible = true },
                 onEnd = { downLayoutHeight = binding.bottomContainer.measuredHeight })
+        } else if (isSelected == 0) {
+            viewGroupMargin.setMargins(0, 0, 0, 0)
         }
     }
 

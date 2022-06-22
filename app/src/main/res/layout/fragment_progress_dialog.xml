@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="itemTransferred"
+            type="String" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_112sdp"
+        tools:context=".features.main.ProgressDialogFragment">
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:layout_marginHorizontal="@dimen/_12sdp" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_marginBottom="@dimen/_24sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|start"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|start"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:text="@{itemTransferred}"
+                tools:text="1" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|start"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:text="@string/transferred" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </FrameLayout>
+</layout>

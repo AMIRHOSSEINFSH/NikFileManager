@@ -51,7 +51,6 @@ class FileExploringFragment :
         super.onViewCreated(view, savedInstanceState)
 
         initSetUp()
-        setUpPermission()
         setUpAdapters()
         setUpObservables()
 
@@ -86,9 +85,6 @@ class FileExploringFragment :
 
     private fun initSetUp() {
         currentPath = args.path
-    }
-
-    private fun setUpPermission() {
         viewModel.getPath(currentPath)
     }
 

@@ -26,6 +26,9 @@
     <string name="folderCreateFailed">ساخت پوشه ناموفق بود</string>
     <string name="transferred">انجام شده</string>
     <string name="done">انجام شد</string>
+    <string name="paste">درج</string>
+    <string name="source">از</string>
+    <string name="destination">به</string>
     <string-array name="alertHistorySorts">
         <item>درونی</item>
         <item>بیرونی</item>

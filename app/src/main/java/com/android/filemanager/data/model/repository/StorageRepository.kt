@@ -14,7 +14,17 @@ interface StorageRepository {
     fun getTotalExternalMemorySize(): Long
     fun getRecentFilesLiveData(): LiveData<List<FileModel>>
     fun getListSize(path: String): Int
-    fun createFolder(path: String,name: String):Boolean
-    suspend fun deleteFileOrFolder(paths: List<File>,doOnFinished: suspend ()-> Unit): LiveData<Resource<Int>>
-   suspend fun getFileList(path: String,counter: Int): List<File>
+    fun createFolder(path: String, name: String): Boolean
+    suspend fun getFileList(path: String, counter: Int): List<File>
+    suspend fun deleteFileOrFolder(
+        paths: List<File>,
+        doOnFinished: suspend () -> Unit
+    ): LiveData<Resource<Int>>
+
+    suspend fun copyFilesToDestination(
+        sources: List<String>,
+        destination: String
+    ): LiveData<Resource<File>>
+
+    suspend fun doCutFiles(sources: List<String>, destination: String): LiveData<Resource<File>>
 }

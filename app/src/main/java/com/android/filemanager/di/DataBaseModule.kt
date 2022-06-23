@@ -2,6 +2,7 @@ package com.android.filemanager.di
 
 import android.content.Context
 import androidx.room.Room
+import com.android.filemanager.core.DataStoreManager
 import com.android.filemanager.data.model.dataBase.FileManagerDataBase
 import dagger.Module
 import dagger.Provides
@@ -20,4 +21,10 @@ object DataBaseModule {
     @Singleton
     fun provideDb(@ApplicationContext context: Context) =
         Room.databaseBuilder(context, FileManagerDataBase::class.java, "FileManagerDB").build()
+
+    /*@Provides
+    @Singleton
+    fun provideDataStore(@ApplicationContext appContext: Context)=
+        DataStoreManager(appContext)*/
+
 }

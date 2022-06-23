@@ -162,7 +162,7 @@
                     android:layout_width="@dimen/_24sdp"
                     android:layout_height="@dimen/_24sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/iv_delete"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_copy"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/iv_share"
                     app:layout_constraintTop_toTopOf="parent"
@@ -177,13 +177,32 @@
                     app:layout_constraintTop_toBottomOf="@id/iv_cut" />
 
                 <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_copy"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_delete"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/iv_cut"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_baseline_more_vert_24" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Copy"
+                    app:layout_constraintEnd_toEndOf="@id/iv_copy"
+                    app:layout_constraintStart_toStartOf="@id/iv_copy"
+                    app:layout_constraintTop_toBottomOf="@id/iv_copy" />
+
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/iv_delete"
                     android:layout_width="@dimen/_24sdp"
                     android:layout_height="@dimen/_24sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/iv_more"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/iv_cut"
+                    app:layout_constraintStart_toEndOf="@+id/iv_copy"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_baseline_delete_24" />
 

@@ -8,5 +8,169 @@
         android:layout_height="match_parent"
         tools:context=".features.highProcess.CopyCutActivity">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:paddingHorizontal="@dimen/_8sdp"
+            android:id="@+id/destination_table_container"
+            android:paddingVertical="@dimen/_8sdp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/source_tv"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@string/source"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <HorizontalScrollView
+                android:scrollbars="none"
+                app:layout_constraintBottom_toBottomOf="@+id/source_tv"
+                android:paddingStart="@dimen/_4sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/source_tv"
+                app:layout_constraintTop_toTopOf="@id/source_tv"
+                android:layout_width="0dp"
+                android:layout_height="0dp">
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/source"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+            </HorizontalScrollView>
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_marginTop="@dimen/_12sdp"
+                android:id="@+id/destination_tv"
+                app:layout_constraintStart_toStartOf="@+id/source_tv"
+                app:layout_constraintTop_toBottomOf="@+id/source_tv"
+                android:text="@string/destination"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <HorizontalScrollView
+                android:scrollbars="none"
+                app:layout_constraintBottom_toBottomOf="@+id/destination_tv"
+                android:paddingStart="@dimen/_4sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/destination_tv"
+                app:layout_constraintTop_toTopOf="@id/destination_tv"
+                android:layout_width="0dp"
+                android:layout_height="0dp" >
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/destinationContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </HorizontalScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <FrameLayout
+            android:id="@+id/search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_18sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/destination_table_container">
+
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edittext"
+                style="@style/searchEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_32sdp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:paddingStart="@dimen/_26sdp"
+                android:paddingEnd="@dimen/_12sdp"
+                android:textDirection="locale"
+                android:textSize="@dimen/_10sdp" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/_16sdp"
+                android:layout_height="@dimen/_16sdp"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginStart="@dimen/_14sdp"
+                android:tint="@color/grayTv"
+                app:srcCompat="@drawable/ic_baseline_search_24" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/middleContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_4sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            app:layout_constraintEnd_toEndOf="@id/search"
+            app:layout_constraintStart_toStartOf="@+id/search"
+            app:layout_constraintTop_toBottomOf="@+id/search">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/createNew"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
+                android:layout_gravity="end|center_vertical"
+                app:srcCompat="@drawable/ic_create_folder" />
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/toggleGroup_main"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|center_horizontal"
+                android:layout_marginTop="12dp"
+                android:gravity="center_horizontal"
+                app:checkedButton="@id/btn_main_list"
+                app:selectionRequired="true"
+                app:singleSelection="true">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_main_list"
+                    style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cornerRadius="8dp"
+                    app:icon="@drawable/ic_list_black_24dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_main_grid"
+                    style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cornerRadius="8dp"
+                    app:icon="@drawable/ic_grid_black_24dp" />
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+        </FrameLayout>
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragment_container_view"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/_12sdp"
+            app:defaultNavHost="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/middleContainer"
+            app:navGraph="@navigation/file_explore_cut_navigation" />
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/pasteBtn"
+            android:textAllCaps="false"
+            app:icon="@drawable/ic_baseline_done_outline_24"
+            android:text="@string/paste"
+            android:layout_marginBottom="@dimen/_24sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/paste" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

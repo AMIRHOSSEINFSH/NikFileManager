@@ -1,6 +1,7 @@
 package com.android.filemanager.features.main
 
 import android.Manifest
+import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -17,12 +18,15 @@ import android.provider.Settings
 import android.util.Log
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.android.filemanager.core.*
+import com.android.filemanager.features.highProcess.CopyCutActivity
 import com.android.filemanager.features.storage.StorageViewModel
 import kotlin.properties.Delegates
 
@@ -81,6 +85,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.i("TAG", "onCreate: viewMo $viewModel")
         viewGroupMargin = binding.viewPager.layoutParams as ViewGroup.MarginLayoutParams
         viewModel.permissionLiveData.observe(this) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && !permissionIsChecked && !it) {
@@ -97,7 +102,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
         }
 
-
         setUpListeners()
         setupAnimationSelection()
         setUpObservables()
@@ -113,6 +117,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     }
 
+    override fun onStart() {
+        super.onStart()
+
+    }
     private fun setUpObservables() {
         viewModel.cancelSelection.observe(this) {
             binding.selectAll.tag = SELECTALL
@@ -133,6 +141,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     private fun setUpListeners() {
+        val startForResult=
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { result: ActivityResult ->
+                if (result.resultCode == RESULT_CANCEL) {
+                    Toast.makeText(this, "process cancelled", Toast.LENGTH_SHORT).show()
+                    viewModel.emitOnClearSelectionList()
+                    //  you will get result here in result.data
+                    result.data?.getStringExtra("")
+                }
+
+            }
+
+
         binding.apply {
             cancelSelection.setOnClickListener {
 
@@ -170,13 +191,26 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             }
 
             ivDelete.setOnClickListener {
-                ProgressDialogFragment.newInstance().apply { isCancelable = false }.show(supportFragmentManager,null)
+                ProgressDialogFragment.newInstance().apply { isCancelable = false }
+                    .show(supportFragmentManager, null)
                 viewModel.emitOnDelete()
             }
 
             ivCut.setOnClickListener {
-                val intent = Intent()
-                intent
+                val intent = Intent(this@MainActivity, CopyCutActivity::class.java)
+                intent.putExtra(
+                    PROCESS_TYPE,
+                    Process.Cut(viewModel.isSelected.value?.map { it.path }.orEmpty())
+                )
+                startForResult.launch(intent)
+            }
+            binding.ivCopy.setOnClickListener {
+                val intent = Intent(this@MainActivity, CopyCutActivity::class.java)
+                intent.putExtra(
+                    PROCESS_TYPE,
+                    Process.Copy(viewModel.isSelected.value?.map { it.path }.orEmpty())
+                )
+                startForResult.launch(intent)
             }
         }
 

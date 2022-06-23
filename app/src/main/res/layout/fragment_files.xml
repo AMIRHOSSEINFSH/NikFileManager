@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -9,66 +9,83 @@
         tools:context=".features.files.FilesFragment">
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:textAppearance="?textAppearanceSubtitle2"
-            android:layout_marginTop="@dimen/_12sdp"
-            tools:text="Directory"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/explore_tv"
-            android:id="@+id/directory"
+            android:id="@+id/destination_tv"
+            android:text="@string/internal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:textAppearance="?textAppearanceSubtitle2"
+            app:layout_constraintStart_toStartOf="@+id/explore_tv"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <HorizontalScrollView
+            android:id="@+id/directory"
+            android:scrollbars="none"
+            app:layout_constraintBottom_toBottomOf="@+id/destination_tv"
+            android:paddingStart="@dimen/_4sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/destination_tv"
+            app:layout_constraintTop_toTopOf="@id/destination_tv"
+            android:layout_width="0dp"
+            android:layout_height="0dp" >
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/destinationContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </HorizontalScrollView>
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:visibility="gone"
-            android:layout_marginStart="@dimen/_4sdp"
-            android:textAppearance="?textAppearanceSubtitle1"
-            tools:text="LastPath"
-            app:layout_constraintTop_toTopOf="@+id/directory"
-            app:layout_constraintBottom_toBottomOf="@+id/directory"
-            app:layout_constraintStart_toEndOf="@+id/directory"
             android:id="@+id/lastPath"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:textAppearance="?textAppearanceSubtitle1"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/directory"
+            app:layout_constraintStart_toEndOf="@+id/directory"
+            app:layout_constraintTop_toTopOf="@+id/directory"
+            tools:text="LastPath" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/create_new"
-            app:srcCompat="@drawable/ic_create_folder"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
             android:layout_marginEnd="@dimen/_8sdp"
-            app:layout_constraintTop_toTopOf="@+id/iv_files_change_rotate"
             app:layout_constraintBottom_toBottomOf="@+id/iv_files_change_rotate"
             app:layout_constraintEnd_toStartOf="@+id/iv_files_change_rotate"
-            android:layout_width="@dimen/_24sdp"
-            android:layout_height="@dimen/_24sdp" />
+            app:layout_constraintTop_toTopOf="@+id/iv_files_change_rotate"
+            app:srcCompat="@drawable/ic_create_folder" />
 
 
         <FrameLayout
             android:id="@+id/search"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@+id/explore_tv"
-            app:layout_constraintEnd_toStartOf="@+id/create_new"
             app:layout_constraintBottom_toBottomOf="@+id/explore_tv"
+            app:layout_constraintEnd_toStartOf="@+id/create_new"
+            app:layout_constraintStart_toEndOf="@+id/explore_tv"
             app:layout_constraintTop_toTopOf="@+id/explore_tv">
 
 
             <androidx.appcompat.widget.AppCompatEditText
-                android:layout_marginEnd="@dimen/_8sdp"
-                android:textSize="@dimen/_10sdp"
-                android:paddingStart="@dimen/_26sdp"
-                android:paddingEnd="@dimen/_12sdp"
+                android:id="@+id/edittext"
+                style="@style/searchEditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_24sdp"
                 android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:paddingStart="@dimen/_26sdp"
+                android:paddingEnd="@dimen/_12sdp"
                 android:textDirection="locale"
-                android:id="@+id/edittext"
-                style="@style/searchEditTextStyle" />
+                android:textSize="@dimen/_10sdp" />
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:tint="@color/grayTv"
                 android:layout_width="@dimen/_16sdp"
                 android:layout_height="@dimen/_16sdp"
                 android:layout_gravity="start|center_vertical"
                 android:layout_marginStart="@dimen/_14sdp"
+                android:tint="@color/grayTv"
                 app:srcCompat="@drawable/ic_baseline_search_24" />
 
         </FrameLayout>
@@ -84,26 +101,27 @@
             app:srcCompat="@drawable/ic_grid_24dp" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:layout_marginStart="@dimen/_4sdp"
             android:id="@+id/explore_tv"
-            android:layout_marginTop="@dimen/_8sdp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/directory"
-            android:textAppearance="?textAppearanceHeadline3"
-            android:text="@string/explore"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:text="@string/explore"
+            android:textAppearance="?textAppearanceHeadline3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/directory" />
 
         <androidx.fragment.app.FragmentContainerView
-            android:name="androidx.navigation.fragment.NavHostFragment"
-            app:navGraph="@navigation/file_explore_navigation"
-            app:defaultNavHost="true"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:id="@+id/fragment_container_view"
-            android:layout_marginTop="@dimen/_8sdp"
-            app:layout_constraintTop_toBottomOf="@+id/explore_tv"
+            android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
-            android:layout_height="0dp" />
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/_8sdp"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/file_explore_navigation"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/explore_tv"
+            />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,7 +22,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class CreateFileFragment : DialogFragment() {
+class CreateFileFragment constructor(private val onSubmit: (() -> Unit)? = null) :
+    DialogFragment() {
 
     private var _binding: FragmentCreateFileBinding? = null
     private val binding: FragmentCreateFileBinding get() = _binding!!
@@ -38,7 +39,10 @@ class CreateFileFragment : DialogFragment() {
 
     override fun onStart() {
         super.onStart()
-        dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog?.window?.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
         dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_rounded_bg)
     }
 
@@ -48,7 +52,10 @@ class CreateFileFragment : DialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCreateFileBinding.inflate(inflater, container, false)
-        dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        dialog?.window?.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        )
         dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_rounded_bg)
         return binding.root
     }
@@ -59,18 +66,26 @@ class CreateFileFragment : DialogFragment() {
         binding.submit.setOnClickListener {
             val txt = binding.fileNameEt.text.toString()
             if (txt.isNullOrEmpty()) {
-                Toast.makeText(requireContext(), getString(R.string.nullNameError), Toast.LENGTH_SHORT).show()
-            }else{
-                val isSuccess = viewModel.createFolder(path,txt)
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.nullNameError),
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                val isSuccess = viewModel.createFolder(path, txt)
                 if (isSuccess) {
+                    onSubmit?.invoke()
                     viewModel.getPath(viewModel.parentPathLiveData.value)
                     Toast.makeText(
                         requireContext(),
                         getString(R.string.folderSucessFull),
                         Toast.LENGTH_SHORT
                     ).show()
-                }
-                else Toast.makeText(requireContext(), getString(R.string.folderCreateFailed), Toast.LENGTH_SHORT).show()
+                } else Toast.makeText(
+                    requireContext(),
+                    getString(R.string.folderCreateFailed),
+                    Toast.LENGTH_SHORT
+                ).show()
                 dismiss()
             }
         }
@@ -82,10 +97,10 @@ class CreateFileFragment : DialogFragment() {
 
 
     companion object {
-        fun newInstance(path: String?): CreateFileFragment {
+        fun newInstance(path: String?,onSubmit: (() -> Unit)?=null): CreateFileFragment {
             val args = Bundle()
             args.putString(PATH_CREATE_FOLDER, path)
-            val fragment = CreateFileFragment()
+            val fragment = CreateFileFragment(onSubmit)
             fragment.arguments = args
             return fragment
         }

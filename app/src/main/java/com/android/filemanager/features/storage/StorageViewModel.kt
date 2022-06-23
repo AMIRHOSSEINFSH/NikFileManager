@@ -26,21 +26,16 @@ class StorageViewModel @Inject constructor(
     private val dataStoreManager: DataStoreManager
 ) : BaseViewModel() {
 
-    var processIsWorking: Boolean = false
-
     fun emitOnProcessLock(isOnProcess: Boolean): Boolean {
         processIsWorking = isOnProcess
         return isOnProcess
     }
-    val isLinear: LiveData<Boolean> = stateHandle.getLiveData(IS_LINEAR, true)
     private val parentJob = SupervisorJob()
-    private val rootPath = Environment.getExternalStorageDirectory().path
-    private var currentPath: String = rootPath
+    val isLinear: LiveData<Boolean> = stateHandle.getLiveData(IS_LINEAR, true)
 
     fun emitOnViewTypeChanged() {
         stateHandle[IS_LINEAR] = isLinear.value?.not() ?: false
     }
-
 
     private val _isSelected = MutableLiveData<List<File>>(emptyList())
     val isSelected: LiveData<List<File>> get() = _isSelected
@@ -72,31 +67,15 @@ class StorageViewModel @Inject constructor(
 
     private var size = 0
 
-    private val listFileStack = Stack<List<File>>()
-    var fileInputIsLock = false
-    private val strBuffer = StringBuffer()
-    private var order = 0
-
     val recentFilesList = refreshing.switchMap {
         recentFiles.invoke()
     }
-
-    private val _pathDirectoryLiveData = MutableLiveData<String>()
-    val pathDirectoryLiveData: LiveData<String> get() = _pathDirectoryLiveData
 
     private val _parentPathLiveData = MutableLiveData<String?>()
     val parentPathLiveData: LiveData<String?> get() = _parentPathLiveData
 
     fun emitOnParentPath(path: String?) {
         _parentPathLiveData.value = path
-    }
-
-    private val _fileListLiveData = MutableLiveData<List<File>>()
-    val fileListLiveData: LiveData<List<File>> get() = _fileListLiveData
-
-    private fun emitOnFileList(list: List<File>,newCurrentPath: String?) {
-        currentPath = newCurrentPath ?: rootPath
-        _fileListLiveData.value = list
     }
 
     fun getPercentageUsed(): Long {
@@ -124,20 +103,6 @@ class StorageViewModel @Inject constructor(
                 emitOnFileList(list,rootPath)
             }
         }
-    }
-
-    fun addNewPath(name: String) {
-        order++
-        strBuffer.addWithPrefix(name)
-        _pathDirectoryLiveData.value = strBuffer.toString()
-        listFileStack.add(fileListLiveData.value)
-
-    }
-
-    fun popLastPath() {
-        order--
-        strBuffer.popLast()
-        _pathDirectoryLiveData.value = strBuffer.toString()
     }
 
     fun popToPath(name: String) {

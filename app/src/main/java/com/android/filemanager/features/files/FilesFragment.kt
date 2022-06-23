@@ -5,7 +5,10 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
@@ -40,11 +43,12 @@ class FilesFragment : BaseFragment<FragmentFilesBinding>(R.layout.fragment_files
         initSetUp()
         setUpAdapters()
         setupListeners()
+        setUpObservables()
 
-        binding.ivFilesChangeRotate.setOnClickListener {
-            viewModel.emitOnViewTypeChanged()
-        }
 
+    }
+
+    private fun setUpObservables() {
         viewModel.isLinear.observe(viewLifecycleOwner) {
             if (it) {
                 binding.ivFilesChangeRotate.setImageDrawable(
@@ -64,17 +68,26 @@ class FilesFragment : BaseFragment<FragmentFilesBinding>(R.layout.fragment_files
 
         }
 
-        viewModel.pathDirectoryLiveData.observe(viewLifecycleOwner) { path ->
-            binding.directory.text = path
+        viewModel.pathDirectoryLiveData.observe(viewLifecycleOwner) { it ->
+            if (it.first)
+                binding.destinationContainer.addView(
+                    AppCompatTextView(requireContext()).apply { text = it.second },
+                    ViewGroup.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT
+                    )
+                )
+            else binding.destinationContainer.removeViewAt(binding.destinationContainer.childCount - 1)
         }
-
-
     }
 
     private fun setupListeners() {
         binding.createNew.setOnClickListener {
             CreateFileFragment.newInstance(viewModel.parentPathLiveData.value)
                 .show(parentFragmentManager, null)
+        }
+        binding.ivFilesChangeRotate.setOnClickListener {
+            viewModel.emitOnViewTypeChanged()
         }
     }
 

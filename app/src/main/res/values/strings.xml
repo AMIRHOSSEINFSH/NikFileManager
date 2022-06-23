@@ -27,4 +27,7 @@
     <string name="folderCreateFailed">Creating folder was Failed</string>
     <string name="transferred">transferred</string>
     <string name="done">Done</string>
+    <string name="paste">Paste</string>
+    <string name="source">from</string>
+    <string name="destination">To</string>
 </resources>

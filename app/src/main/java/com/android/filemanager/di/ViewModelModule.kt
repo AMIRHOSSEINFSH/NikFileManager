@@ -1,6 +1,7 @@
 package com.android.filemanager.di
 
 import androidx.lifecycle.SavedStateHandle
+import com.android.filemanager.core.DataStoreManager
 import com.android.filemanager.domain.*
 import com.android.filemanager.features.storage.StorageViewModel
 import dagger.Module
@@ -14,7 +15,7 @@ import javax.inject.Singleton
 object ViewModelModule {
 
 
-    /*@Provides
+   /* @Provides
     @Singleton
     fun provideStorageViewModel(
         stateHandle: SavedStateHandle,
@@ -23,7 +24,10 @@ object ViewModelModule {
         getFreeInternal: FreeInternal,
         recentFiles: getRecentFiles,
         getFileList: getFileList,
-        getSize: getListSize
+        getSize: getListSize,
+        fileIsCreated: CreateFile,
+        fileIsDeleted: DeleteFile,
+        dataStoreManager: DataStoreManager
     ): StorageViewModel {
         return StorageViewModel(
             stateHandle,
@@ -32,7 +36,10 @@ object ViewModelModule {
             getFreeInternal,
             recentFiles,
             getFileList,
-            getSize
+            getSize,
+            fileIsCreated,
+            fileIsDeleted,
+            dataStoreManager
         )
     }*/
 }

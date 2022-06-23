@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/file_explore_cut_navigation"
+    app:startDestination="@id/highProcessExploreFragment">
+
+    <fragment
+        tools:layout="@layout/fragment_hight_process_explore"
+        android:id="@+id/highProcessExploreFragment"
+        android:name="com.android.filemanager.features.highProcess.HighProcessExploreFragment"
+        android:label="HighProcessExploreFragment" >
+        <argument
+            android:defaultValue="@null"
+            android:name="path"
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_highProcessExploreFragment_self2"
+            app:destination="@id/highProcessExploreFragment" />
+    </fragment>
+</navigation>

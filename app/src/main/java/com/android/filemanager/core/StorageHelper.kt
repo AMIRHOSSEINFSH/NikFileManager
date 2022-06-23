@@ -2,12 +2,10 @@ package com.android.filemanager.core
 
 import androidx.lifecycle.*
 import com.android.filemanager.R
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.yield
+import kotlinx.coroutines.*
 import java.io.File
 import java.util.*
+import kotlin.collections.HashMap
 
 class StorageHelper {
     fun createFolder(path: String, name: String): Boolean {
@@ -123,6 +121,50 @@ class StorageHelper {
 
     }
 
+    private val copyFilesLiveData = MutableLiveData<Resource<File>>()
+    private val cutFilesLiveData = MutableLiveData<Resource<File>>()
+    suspend fun copyFileToDestination(
+        source: List<File>,
+        destination: String
+    ): LiveData<Resource<File>> =
+        liveData<Resource<File>>() {
+            this.emitSource(copyFilesLiveData)
+            val result = HashMap<File, Boolean>()
+            source.forEach { rootFile ->
+                result[rootFile] =
+                    rootFile.copyRecursively(File("$destination/${rootFile.name}"), onError = { fileError, ioException ->
+                        copyFilesLiveData.value = Resource.Error(
+                            ioException.message ?: UNKNOWN_ERROR, fileError
+                        )
+                        OnErrorAction.SKIP
+                    })
+            }
+                copyFilesLiveData.value = Resource.Finished(result = result)
+        }
+
+
+    fun getCutLiveData() = cutFilesLiveData
+    fun getCopyLiveData() = copyFilesLiveData
+    suspend fun cutFilesToDestination(sources: List<File>, destination: String): LiveData<Resource<File>> = liveData {
+            emitSource(cutFilesLiveData)
+            sources.forEach { rootFile ->
+                val copyStatus =
+                    rootFile.copyRecursively(File("${destination}/${rootFile.name}"), onError = { fileError, ioException ->
+                        cutFilesLiveData.value = Resource.Error(
+                            ioException.message ?: UNKNOWN_ERROR, fileError
+                        )
+
+                        OnErrorAction.SKIP
+                    })
+                val removeStatus = rootFile.deleteRecursively()
+                if (copyStatus && removeStatus) cutFilesLiveData.value = Resource.Success(rootFile)
+                else cutFilesLiveData.value = Resource.Error(CUT_FACED_ERROR, rootFile)
+            }
+            cutFilesLiveData.value = Resource.Finished()
+            //return cutFilesLiveData
+        }
+
+
     private enum class Format {
         ZIP,
         PDF,
@@ -131,6 +173,5 @@ class StorageHelper {
         MUSIC,
         IMAGE
     }
-
 
 }

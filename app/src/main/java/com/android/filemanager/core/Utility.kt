@@ -3,6 +3,7 @@ package com.android.filemanager.core
 import android.os.Parcel
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import java.io.File
 
 sealed class DataStorePreferences<T>(val value: T) {
     class THEME(mode: Int) : DataStorePreferences<Int>(mode)
@@ -49,14 +50,19 @@ sealed class Resource<T>(
 ) {
     class Success<T>(data: T) : Resource<T>(data)
     class Loading<T>(data: T? = null) : Resource<T>(data)
-    class Finished<T>(message: String? = null, data: T? = null) : Resource<T>(data, message)
+    class Finished<T>(message: String? = null, data: T? = null, result: Map<T, Boolean>? = null) :
+        Resource<T>(data, message)
+
     class Error<T>(message: String, data: T? = null) : Resource<T>(data, message)
 }
+
 sealed class Process(
     val data: List<String>
-): Parcelable {
-    @Parcelize data class Copy(val list: List<String>): Process(list)
-    @Parcelize data class Cut(val list: List<String>): Process(list)
+) : Parcelable {
+    @Parcelize
+    data class Copy(val list: List<String>) : Process(list)
+    @Parcelize
+    data class Cut(val list: List<String>) : Process(list)
 }
 
 

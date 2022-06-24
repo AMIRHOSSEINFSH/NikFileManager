@@ -100,9 +100,7 @@ class StorageRepositoryImpl @Inject constructor(
     override suspend fun doCutFiles(
         sources: List<String>,
         destination: String
-    ): LiveData<Resource<File>> {
-        val sourceList=  sources.map { File(it) }
-        return storageHelper.cutFilesToDestination(sourceList,destination)
-    }
+    ): LiveData<Resource<File>> =storageHelper.cutFilesToDestination(sources.map { File(it) },destination)
+
 
 }

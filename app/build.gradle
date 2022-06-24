@@ -79,7 +79,10 @@ dependencies {
 
     //coil
     implementation "io.coil-kt:coil:1.4.0"
-
+/*
+    implementation("io.coil-kt:coil-video:2.1.0")
+*/
+    implementation 'com.github.COPS-IITBHU:Previewer:1.0.0'
     // Kotlin
     implementation "androidx.fragment:fragment-ktx:1.5.0-rc01"
 

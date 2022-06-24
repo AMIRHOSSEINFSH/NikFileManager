@@ -40,7 +40,13 @@ class StorageFragment : BaseFragment<FragmentStorageBinding>(R.layout.fragment_s
         initSetUp()
         setUpAdapters()
         setUpObservables()
+        setUpListeners()
+    }
 
+    private fun setUpListeners() {
+        binding.image.setOnClickListener {
+
+        }
     }
 
 

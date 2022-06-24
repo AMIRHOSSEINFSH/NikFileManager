@@ -80,6 +80,9 @@ class StorageHelper {
             }
         }
 
+        fun getFormatType(file: File): Format? = map[getExtension(file.name.lowercase(Locale.getDefault()))]
+
+
         fun getDrawableIcon(file: File): Int {
             val name = file.name
 
@@ -127,45 +130,49 @@ class StorageHelper {
         source: List<File>,
         destination: String
     ): LiveData<Resource<File>> =
-        liveData<Resource<File>>() {
+        liveData {
             this.emitSource(copyFilesLiveData)
             val result = HashMap<File, Boolean>()
             source.forEach { rootFile ->
                 result[rootFile] =
-                    rootFile.copyRecursively(File("$destination/${rootFile.name}"), onError = { fileError, ioException ->
-                        copyFilesLiveData.value = Resource.Error(
-                            ioException.message ?: UNKNOWN_ERROR, fileError
-                        )
-                        OnErrorAction.SKIP
-                    })
+                    rootFile.copyRecursively(
+                        File("$destination/${rootFile.name}"),
+                        onError = { fileError, ioException ->
+                            copyFilesLiveData.value = Resource.Error(
+                                ioException.message ?: UNKNOWN_ERROR, fileError
+                            )
+                            OnErrorAction.SKIP
+                        })
             }
-                copyFilesLiveData.value = Resource.Finished(result = result)
+            copyFilesLiveData.value = Resource.Finished(result = result)
         }
 
-
-    fun getCutLiveData() = cutFilesLiveData
-    fun getCopyLiveData() = copyFilesLiveData
-    suspend fun cutFilesToDestination(sources: List<File>, destination: String): LiveData<Resource<File>> = liveData {
-            emitSource(cutFilesLiveData)
-            sources.forEach { rootFile ->
-                val copyStatus =
-                    rootFile.copyRecursively(File("${destination}/${rootFile.name}"), onError = { fileError, ioException ->
+    suspend fun cutFilesToDestination(
+        sources: List<File>,
+        destination: String
+    ): LiveData<Resource<File>> = liveData {
+        emitSource(cutFilesLiveData)
+        sources.forEach { rootFile ->
+            val copyStatus =
+                rootFile.copyRecursively(
+                    File("${destination}/${rootFile.name}"),
+                    onError = { fileError, ioException ->
                         cutFilesLiveData.value = Resource.Error(
                             ioException.message ?: UNKNOWN_ERROR, fileError
                         )
 
                         OnErrorAction.SKIP
                     })
-                val removeStatus = rootFile.deleteRecursively()
-                if (copyStatus && removeStatus) cutFilesLiveData.value = Resource.Success(rootFile)
-                else cutFilesLiveData.value = Resource.Error(CUT_FACED_ERROR, rootFile)
-            }
-            cutFilesLiveData.value = Resource.Finished()
-            //return cutFilesLiveData
+            val removeStatus = rootFile.deleteRecursively()
+            if (copyStatus && removeStatus) cutFilesLiveData.value = Resource.Success(rootFile)
+            else cutFilesLiveData.value = Resource.Error(CUT_FACED_ERROR, rootFile)
         }
+        cutFilesLiveData.value = Resource.Finished()
+        //return cutFilesLiveData
+    }
 
 
-    private enum class Format {
+    enum class Format {
         ZIP,
         PDF,
         TXT,

@@ -70,13 +70,13 @@ class CopyCutViewModel @Inject constructor(
     private val shouldCut = MutableLiveData<Boolean>()
 
     val copyLiveData = shouldCopy.switchMap {
-        liveData<Resource<File>>(Dispatchers.Default) {
-            copyFiles.invoke(sourcePathList, destinationPath)
+        liveData(Dispatchers.Default) {
+            emitSource(copyFiles.invoke(sourcePathList, destinationPath))
         }
     }
 
     val cutLiveData = shouldCut.switchMap {
-        liveData<Resource<File>>(Dispatchers.Default) {
+        liveData(Dispatchers.Default) {
             emitSource(cutFiles.invoke(sourcePathList, destinationPath))
         }
     }

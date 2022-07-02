@@ -71,9 +71,9 @@ class StorageFragment : BaseFragment<FragmentStorageBinding>(R.layout.fragment_s
     }
 
     private fun setUpObservables() {
-        /*viewModel.recentFilesList.observe(viewLifecycleOwner) { list ->
-            // adapter.submitList(list)
-        }*/
+        viewModel.recentFilesList.observe(viewLifecycleOwner) { list ->
+            adapter.submitList(list.map { File(it.path) })
+        }
     }
 
     private fun setUpAdapters() {

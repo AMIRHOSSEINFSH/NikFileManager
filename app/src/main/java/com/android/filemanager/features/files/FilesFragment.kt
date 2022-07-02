@@ -30,6 +30,11 @@ import dagger.hilt.android.AndroidEntryPoint
 class FilesFragment : BaseFragment<FragmentFilesBinding>(R.layout.fragment_files) {
 
     private val viewModel: StorageViewModel by activityViewModels()
+    private val stackAdapter: FileStackAdapter by lazy {
+        FileStackAdapter {
+
+        }
+    }
 
     private val recentAdapter by lazy {
         RecentFilesAdapter { fileModel ->
@@ -44,7 +49,6 @@ class FilesFragment : BaseFragment<FragmentFilesBinding>(R.layout.fragment_files
         setUpAdapters()
         setupListeners()
         setUpObservables()
-
 
     }
 
@@ -79,6 +83,18 @@ class FilesFragment : BaseFragment<FragmentFilesBinding>(R.layout.fragment_files
                 )
             else binding.destinationContainer.removeViewAt(binding.destinationContainer.childCount - 1)
         }
+
+        viewModel.getStackLiveData().observe(viewLifecycleOwner) { stack ->
+            try {
+                stackAdapter.submitList(
+                    stack.toMutableList().subList(1, stack.size)
+                        .apply { add(viewModel.getLastObjInStack()) })
+                binding.pathDirectoryRec.scrollToPosition(stackAdapter.itemCount)
+            }catch (e: Exception) {
+
+            }
+
+        }
     }
 
     private fun setupListeners() {
@@ -93,7 +109,12 @@ class FilesFragment : BaseFragment<FragmentFilesBinding>(R.layout.fragment_files
 
     private fun setUpAdapters() {
         binding.apply {
-
+            pathDirectoryRec.adapter = stackAdapter
+            pathDirectoryRec.layoutManager = LinearLayoutManager(
+                requireContext(),
+                RecyclerView.HORIZONTAL,
+                false
+            )
         }
     }
 

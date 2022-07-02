@@ -12,4 +12,4 @@ val DELETE_FAILED = "Deleting this file Fail"
 val PROCESS_TYPE = "process type"
 val UNKNOWN_ERROR = "unknown Error"
 val CUT_FACED_ERROR = "cut Faced an Error"
-val RESULT_CANCEL = 1001
+val DIRECTORY_CATEGORY = "Category_key"

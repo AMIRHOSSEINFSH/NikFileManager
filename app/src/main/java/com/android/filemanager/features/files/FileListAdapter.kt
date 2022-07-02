@@ -148,7 +148,7 @@ class FileListAdapter(
 
     fun clearSelectedList() {
         selectedList.clear()
-        notifyItemRangeChanged(0, itemCount - 1)
+        notifyItemRangeChanged(0, itemCount)
     }
 
     override fun getItemViewType(position: Int): Int {

@@ -1,11 +1,22 @@
 package com.android.filemanager.core
 
-import androidx.lifecycle.*
+import android.os.Environment
+import android.os.Environment.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.liveData
 import com.android.filemanager.R
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.yield
 import java.io.File
 import java.util.*
 import kotlin.collections.HashMap
+import kotlin.collections.List
+import kotlin.collections.forEach
+import kotlin.collections.forEachIndexed
+import kotlin.collections.isNotEmpty
+import kotlin.collections.mutableListOf
+import kotlin.collections.set
 
 class StorageHelper {
     fun createFolder(path: String, name: String): Boolean {
@@ -168,10 +179,20 @@ class StorageHelper {
             else cutFilesLiveData.value = Resource.Error(CUT_FACED_ERROR, rootFile)
         }
         cutFilesLiveData.value = Resource.Finished()
-        //return cutFilesLiveData
     }
 
+    fun getCategoryList(category: Category) = liveData<List<File>> {
+        val d= getExternalStoragePublicDirectory(category.value)
 
+    }
+
+    enum class Category(val value: String) {
+        MUSIC(DIRECTORY_MUSIC),
+        PICTURES(DIRECTORY_PICTURES),
+        MOVIES(DIRECTORY_MOVIES),
+        DOWNLOADS(DIRECTORY_DOWNLOADS),
+        DOCUMENTS(DIRECTORY_DOCUMENTS)
+    }
     enum class Format {
         ZIP,
         PDF,
@@ -180,5 +201,6 @@ class StorageHelper {
         MUSIC,
         IMAGE
     }
+
 
 }

@@ -1,7 +1,6 @@
 package com.android.filemanager.features.main
 
 import android.Manifest
-import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -15,7 +14,6 @@ import com.android.filemanager.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import android.provider.Settings
-import android.util.Log
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
@@ -34,9 +32,14 @@ import kotlin.properties.Delegates
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
+
     private val MANAGE_STORAGE_RC = 201
     private var permissionIsChecked = false
+
+    //todo if the first item of selection list is selected it becomes
     private var isFirstSelect = true
+
+    //todo use for down box margin to not hover the last item of recyclerView
     private lateinit var viewGroupMargin: ViewGroup.MarginLayoutParams
 
     private val viewModel: StorageViewModel by viewModels()
@@ -49,6 +52,33 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
     private var downLayoutHeight by Delegates.vetoable(initialValue = 250) { _, oldValue, newValue ->
         newValue != 0 && oldValue <= newValue
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        initSetUp()
+        //todo check for permission
+        viewModel.permissionLiveData.observe(this) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && !permissionIsChecked && !it) {
+                val builder = AlertDialog.Builder(this)
+                builder.setMessage(R.string.access_storage_prompt).setCancelable(false)
+                    .setPositiveButton(R.string.yes, dialogClickListener)
+                    .setNegativeButton(R.string.no, dialogClickListener).show()
+            } else {
+                if (!checkPermission()) {
+                    requestPermission()
+                }
+            }
+
+
+        }
+        setUpListeners()
+        setupAnimationSelection()
+        setUpObservables()
+        setUpViewpager()
+
+
     }
 
     @Deprecated("Deprecated in Java")
@@ -83,29 +113,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             }
         }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Log.i("TAG", "onCreate: viewMo $viewModel")
-        viewGroupMargin = binding.viewPager.layoutParams as ViewGroup.MarginLayoutParams
-        viewModel.permissionLiveData.observe(this) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && !permissionIsChecked && !it) {
-                val builder = AlertDialog.Builder(this)
-                builder.setMessage(R.string.access_storage_prompt).setCancelable(false)
-                    .setPositiveButton(R.string.yes, dialogClickListener)
-                    .setNegativeButton(R.string.no, dialogClickListener).show()
-            } else {
-                if (!checkPermission()) {
-                    requestPermission()
-                }
-            }
-
-
-        }
-
-        setUpListeners()
-        setupAnimationSelection()
-        setUpObservables()
-
+    private fun setUpViewpager() {
         binding.viewPager.adapter = pagerAdapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager, true, true) { tab, position ->
             when (position) {
@@ -113,14 +121,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 1 -> tab.text = getString(R.string.files)
             }
         }.attach()
+    }
 
-
+    private fun initSetUp() {
+        viewGroupMargin = binding.viewPager.layoutParams as ViewGroup.MarginLayoutParams
     }
 
     override fun onStart() {
         super.onStart()
 
     }
+
     private fun setUpObservables() {
         viewModel.cancelSelection.observe(this) {
             binding.selectAll.tag = SELECTALL
@@ -141,22 +152,24 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     private fun setUpListeners() {
-        val startForResult=
+        //todo callback for result of cut / copy operation
+        val startForResult =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult())
             { result: ActivityResult ->
-                if (result.resultCode == RESULT_CANCEL) {
+                if (result.resultCode == RESULT_CANCELED) {
                     Toast.makeText(this, "process cancelled", Toast.LENGTH_SHORT).show()
-                    viewModel.emitOnClearSelectionList()
                     //  you will get result here in result.data
                     result.data?.getStringExtra("")
+                } else if (result.resultCode == RESULT_OK) {
+
                 }
+                viewModel.emitOnClearSelectionList()
 
             }
 
 
         binding.apply {
             cancelSelection.setOnClickListener {
-
                 viewGroupMargin.setMargins(0, 0, 0, 0)
                 viewModel.emitOnClearSelectionList()
                 selectedLayout.setHeightResizeAnimator(
@@ -256,9 +269,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             this,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
         )
-        return if (result == PackageManager.PERMISSION_GRANTED) {
-            true
-        } else false
+        return result == PackageManager.PERMISSION_GRANTED
     }
 
     private fun requestPermission() {

@@ -7,8 +7,5 @@ import androidx.room.PrimaryKey
 data class FileModel(
     @PrimaryKey
     val path: String,
-    var name: String,
-    val isDirectory: Boolean = false,
-    var size: Int = 0,
-    var children: Int = 0
+    var name: String? = null
 )

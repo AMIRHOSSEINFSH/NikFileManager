@@ -1,5 +1,7 @@
 package com.android.filemanager.features.highProcess
 
+import android.app.Activity.RESULT_CANCELED
+import android.app.Activity.RESULT_OK
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -15,7 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.filemanager.R
 import com.android.filemanager.core.BaseFragment
-import com.android.filemanager.core.RESULT_CANCEL
 import com.android.filemanager.core.Resource
 import com.android.filemanager.databinding.FragmentHightProcessExploreBinding
 import com.android.filemanager.features.explore.FileExploringFragmentArgs
@@ -62,7 +64,7 @@ class HighProcessExploreFragment :
                             viewModel.popLastPath()
                             findNavController().popBackStack()
                         }else {
-                            requireActivity().setResult(RESULT_CANCEL)
+                            requireActivity().setResult(RESULT_CANCELED)
                             requireActivity().finish()
                         }
                     }
@@ -89,8 +91,6 @@ class HighProcessExploreFragment :
     private fun setUpObservables() {
         viewModel.fileListLiveData.observe(viewLifecycleOwner) { list ->
             if (!viewModel.fileInputIsLock) {
-                //if (list.isNotEmpty())
-                    //viewModel.emitOnParentPath(list.first().parent)
                 adapter.submitList(list)
             }
         }
@@ -108,7 +108,11 @@ class HighProcessExploreFragment :
         viewModel.cutLiveData.observe(viewLifecycleOwner) {
             when(it) {
                 is Resource.Error -> Toast.makeText(requireContext(), "error", Toast.LENGTH_SHORT).show()
-                is Resource.Finished -> viewModel.getPath(viewModel.getCurrent())
+                is Resource.Finished -> {
+                    viewModel.getPath(viewModel.getCurrent())
+                    requireActivity().setResult(RESULT_OK)
+                    requireActivity().finish()
+                }
                 is Resource.Loading -> Toast.makeText(requireContext(), "loading", Toast.LENGTH_SHORT).show()
                 is Resource.Success -> Toast.makeText(requireContext(), "file ${it.data?.name} completely cut", Toast.LENGTH_SHORT).show()
             }
@@ -116,7 +120,11 @@ class HighProcessExploreFragment :
         viewModel.copyLiveData.observe(viewLifecycleOwner) {
             when(it) {
                 is Resource.Error -> Toast.makeText(requireContext(), "error", Toast.LENGTH_SHORT).show()
-                is Resource.Finished -> viewModel.getPath(viewModel.getCurrent())
+                is Resource.Finished -> {
+                    viewModel.getPath(viewModel.getCurrent())
+                    requireActivity().setResult(RESULT_OK)
+                    requireActivity().finish()
+                }
                 is Resource.Loading -> Toast.makeText(requireContext(), "loading", Toast.LENGTH_SHORT).show()
                 is Resource.Success -> Toast.makeText(requireContext(), "file ${it.data?.name} completely copy", Toast.LENGTH_SHORT).show()
             }

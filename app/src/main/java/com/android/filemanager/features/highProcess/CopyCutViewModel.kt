@@ -5,10 +5,8 @@ import com.android.filemanager.core.BaseViewModel
 import com.android.filemanager.core.IS_LINEAR
 import com.android.filemanager.core.Process
 import com.android.filemanager.core.Resource
-import com.android.filemanager.domain.CreateFile
-import com.android.filemanager.domain.CutFilesToDestination
-import com.android.filemanager.domain.DoCopyFiles
-import com.android.filemanager.domain.getFileList
+import com.android.filemanager.data.model.dataClass.FileModel
+import com.android.filemanager.domain.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import java.io.File
@@ -20,7 +18,8 @@ class CopyCutViewModel @Inject constructor(
     private val copyFiles: DoCopyFiles,
     private val cutFiles: CutFilesToDestination,
     private val fileIsCreated: CreateFile,
-    private val getFileList: getFileList
+    private val getFileList: getFileList,
+    private val insertFileModels: InsertFileModels
 ) : BaseViewModel() {
 
 
@@ -30,11 +29,11 @@ class CopyCutViewModel @Inject constructor(
 
     val isLinear: LiveData<Boolean> = stateHandle.getLiveData(IS_LINEAR, true)
 
-    fun emitOnViewTypeChanged() {
+    override fun emitOnViewTypeChanged() {
         stateHandle[IS_LINEAR] = isLinear.value?.not() ?: false
     }
 
-    fun getPath(
+    override fun getPath(
         path: String?
     ) {
         if (listFileStack.getOrNull(order) != null) {
@@ -72,6 +71,7 @@ class CopyCutViewModel @Inject constructor(
     val copyLiveData = shouldCopy.switchMap {
         liveData(Dispatchers.Default) {
             emitSource(copyFiles.invoke(sourcePathList, destinationPath))
+            insertFileModels.invoke(sourcePathList.map { FileModel(it) })
         }
     }
 
@@ -94,13 +94,11 @@ class CopyCutViewModel @Inject constructor(
     }
 
     fun emitOnTransferredFiles(permissionGranted: () -> Boolean) {
-            when(processType) {
-                is Process.Copy -> emitOnCopy { permissionGranted.invoke() }
-                is Process.Cut -> emitOnCut { permissionGranted.invoke() }
-            }
+        when (processType) {
+            is Process.Copy -> emitOnCopy { permissionGranted.invoke() }
+            is Process.Cut -> emitOnCut { permissionGranted.invoke() }
+        }
     }
-
-
 
 
 }

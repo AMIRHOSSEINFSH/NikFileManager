@@ -13,6 +13,7 @@ import coil.transform.CircleCropTransformation
 import com.android.filemanager.R
 import com.android.filemanager.core.StorageHelper
 import com.cops.iitbhu.previewer.lib.Previewer
+import com.google.android.material.textview.MaterialTextView
 import kotlinx.coroutines.*
 import java.io.File
 
@@ -31,6 +32,11 @@ fun setName(textView: AppCompatTextView, name: String) {
         StorageHelper.compressName(name)
     } else name
     textView.text = result
+}
+
+@BindingAdapter("app:setStackName")
+fun setStackNameFolder(tv: MaterialTextView,name: String) {
+    tv.text = "<$name"
 }
 
 @BindingAdapter("app:setIconDrawable")

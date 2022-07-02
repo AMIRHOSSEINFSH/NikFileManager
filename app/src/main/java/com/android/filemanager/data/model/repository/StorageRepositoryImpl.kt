@@ -71,6 +71,10 @@ class StorageRepositoryImpl @Inject constructor(
         return dao.getRecentFiles()
     }
 
+    override fun insertFileModifies(list: List<FileModel>) {
+        dao.insertFiles(list)
+    }
+
     override fun getListSize(path: String): Int {
         return File(path).listFiles()?.size ?: 0
     }

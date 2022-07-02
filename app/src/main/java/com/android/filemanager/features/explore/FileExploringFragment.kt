@@ -1,9 +1,15 @@
 package com.android.filemanager.features.explore
 
 import android.content.Intent
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
+import androidx.core.content.FileProvider
+import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -11,6 +17,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.filemanager.R
+import com.android.filemanager.core.ActionOnList
 import com.android.filemanager.core.BaseFragment
 import com.android.filemanager.databinding.FragmentFileExploringBinding
 import com.android.filemanager.features.files.FileListAdapter
@@ -30,15 +37,21 @@ class FileExploringFragment :
 
     private val fileExploreAdapter by lazy {
         FileListAdapter(itemClicked = { fileModel ->
-            if (fileModel.isDirectory)
-            viewModel.emitOnParentPath(fileModel.path)
             val shouldNavigate = viewModel.isSelected.value?.isEmpty() ?: true
-            if (shouldNavigate) {
-                viewModel.addNewPath(fileModel.name)
-                findNavController().navigate(
-                    FileExploringFragmentDirections.actionFileExploringFragmentSelf()
-                        .setPath(fileModel.path)
-                )
+            if (fileModel.isDirectory) {
+                viewModel.emitOnParentPath(fileModel.path)
+                if (shouldNavigate) {
+                    viewModel.doOnDataList(ActionOnList.ADD(fileModel.path))
+                    //viewModel.addNewPath(fileModel.name)
+                    findNavController().navigate(
+                        FileExploringFragmentDirections.actionFileExploringFragmentSelf()
+                            .setPath(fileModel.path)
+                    )
+                }
+            } else {
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.data = fileModel.toUri()
+                startActivity(intent)
             }
             shouldNavigate
         }, itemLongClicked = {
@@ -58,7 +71,7 @@ class FileExploringFragment :
             viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    if (!viewModel.processIsWorking){
+                    if (!viewModel.processIsWorking) {
                         //todo if backQueue.size is root so:
                         if (findNavController().backQueue.size != 2) {
                             //todo if you are not in root && there are some items that checked it will clear it instead of pop and back navigate
@@ -66,13 +79,15 @@ class FileExploringFragment :
                                 viewModel.emitOnAllViewSelected(true)
                             }
                             //todo you are not in root and there is no selected item so just need to pop and back navigate
-                            else{
-                                viewModel.popLastPath()
+                            else {
+                                //viewModel.popLastPath()
+                                // viewModel.setAndPushLastObjInStack(args.path)
+                                viewModel.doOnDataList(ActionOnList.POP(null))
                                 findNavController().popBackStack()
                             }
                         }
                         //todo you are in root and just need to remove selection
-                        else{
+                        else {
                             viewModel.emitOnAllViewSelected(true)
                         }
                     }
@@ -84,8 +99,11 @@ class FileExploringFragment :
     }
 
     private fun initSetUp() {
-        currentPath = args.path
-        viewModel.getPath(currentPath)
+        if (viewModel.isFirst) {
+            viewModel.isFirst = false
+            currentPath = args.path
+            viewModel.setRootOfLastStack(currentPath)
+        }
     }
 
     private fun setUpAdapters() {
@@ -100,6 +118,7 @@ class FileExploringFragment :
         viewModel.fileListLiveData.observe(viewLifecycleOwner) { list ->
 
             if (!viewModel.fileInputIsLock) {
+                viewModel.fileInputIsLock = true
                 if (list.isNotEmpty())
                     viewModel.emitOnParentPath(list.first().parent)
                 fileExploreAdapter.submitList(list)
@@ -119,7 +138,7 @@ class FileExploringFragment :
         viewModel.cancelSelection.observe(viewLifecycleOwner) {
             fileExploreAdapter.clearSelectedList()
         }
-        viewModel.shouldClearSelection.observe(viewLifecycleOwner){shouldCLear->
+        viewModel.shouldClearSelection.observe(viewLifecycleOwner) { shouldCLear ->
             if (shouldCLear) fileExploreAdapter.clearSelection() else fileExploreAdapter.selectAll()
         }
     }

@@ -12,7 +12,6 @@
     <color name="colorBgSearch">@color/blue_grey_900</color>
     <color name="textColorSearch">@color/black</color>
 
-
     <color name="blue_grey_900">#CBCED1</color>
     <color name="boulder">#7A7A7A</color>
     <color name="background_color">#f6f6f6</color>

@@ -20,36 +20,40 @@
         android:background="@drawable/bg_corner_4sdp"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_56sdp">
+
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:background="@color/unUsed"
             android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/unUsed">
 
             <androidx.appcompat.widget.AppCompatImageView
-                app:setIconDrawable="@{file}"
-                android:layout_margin="@dimen/_8sdp"
                 android:id="@+id/icon"
-                android:layout_marginTop="@dimen/_8sdp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                tools:srcCompat="@drawable/ic_folder"
                 android:layout_width="@dimen/_32sdp"
-                android:layout_height="@dimen/_32sdp" />
+                android:layout_height="@dimen/_32sdp"
+                android:layout_margin="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:setIconDrawable="@{file}"
+                tools:srcCompat="@drawable/ic_folder" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:paddingStart="@dimen/_8sdp"
+                android:id="@+id/txtName"
+                android:layout_width="312dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_8sdp"
+                android:text="@{file.name}"
                 android:textAppearance="?textAppearanceCaption"
+                app:layout_constraintEnd_toStartOf="@+id/appCompatImageView"
                 app:layout_constraintStart_toEndOf="@id/icon"
                 app:layout_constraintTop_toTopOf="@+id/icon"
-                android:id="@+id/txtName"
-                android:text="@{file.name}"
-                tools:text="folder Name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                tools:text="folder Name" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:paddingStart="@dimen/_8sdp"
                 android:id="@+id/children"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -59,13 +63,14 @@
                 tools:text="112 items" />
 
             <androidx.appcompat.widget.AppCompatImageView
-                app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24"
+                android:id="@+id/appCompatImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_8sdp"
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

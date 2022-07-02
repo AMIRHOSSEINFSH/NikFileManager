@@ -2,6 +2,7 @@ package com.android.filemanager.core
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.android.filemanager.data.model.dataClass.StackFolder
 import kotlinx.parcelize.Parcelize
 import java.io.File
 
@@ -61,8 +62,15 @@ sealed class Process(
 ) : Parcelable {
     @Parcelize
     data class Copy(val list: List<String>) : Process(list)
+
     @Parcelize
     data class Cut(val list: List<String>) : Process(list)
+}
+
+sealed class ActionOnList( val path: String? = null) {
+    class ADD(val newPath: String) : ActionOnList(newPath)
+    class POP(val stackFolder: StackFolder?) : ActionOnList(stackFolder?.fullPath)
+    class REFRESH() : ActionOnList()
 }
 
 

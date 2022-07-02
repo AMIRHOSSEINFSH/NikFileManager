@@ -9,6 +9,7 @@
         tools:context=".features.files.FilesFragment">
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:background="@drawable/bg_internal_btn"
             android:id="@+id/destination_tv"
             android:text="@string/internal"
             android:layout_width="wrap_content"
@@ -18,7 +19,22 @@
             app:layout_constraintStart_toStartOf="@+id/explore_tv"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:visibility="visible"
+            android:id="@+id/pathDirectoryRec"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:scrollbars="none"
+            app:layout_constraintBottom_toBottomOf="@+id/destination_tv"
+            android:paddingStart="@dimen/_4sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/destination_tv"
+            app:layout_constraintTop_toTopOf="@id/destination_tv"
+            android:layout_width="0dp"
+            android:layout_height="0dp" />
+
         <HorizontalScrollView
+            android:visibility="gone"
             android:id="@+id/directory"
             android:scrollbars="none"
             app:layout_constraintBottom_toBottomOf="@+id/destination_tv"
@@ -31,7 +47,7 @@
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/destinationContainer"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent" />
         </HorizontalScrollView>
 
@@ -42,9 +58,9 @@
             android:layout_marginStart="@dimen/_4sdp"
             android:textAppearance="?textAppearanceSubtitle1"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/directory"
-            app:layout_constraintStart_toEndOf="@+id/directory"
-            app:layout_constraintTop_toTopOf="@+id/directory"
+            app:layout_constraintBottom_toBottomOf="@+id/pathDirectoryRec"
+            app:layout_constraintStart_toEndOf="@+id/pathDirectoryRec"
+            app:layout_constraintTop_toTopOf="@+id/pathDirectoryRec"
             tools:text="LastPath" />
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -109,7 +125,7 @@
             android:text="@string/explore"
             android:textAppearance="?textAppearanceHeadline3"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/directory" />
+            app:layout_constraintTop_toBottomOf="@+id/pathDirectoryRec" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragment_container_view"

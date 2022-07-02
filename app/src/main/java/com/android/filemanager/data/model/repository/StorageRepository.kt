@@ -13,6 +13,7 @@ interface StorageRepository {
     fun getAvailableExternalMemorySize(): Long
     fun getTotalExternalMemorySize(): Long
     fun getRecentFilesLiveData(): LiveData<List<FileModel>>
+    fun insertFileModifies(list: List<FileModel>)
     fun getListSize(path: String): Int
     fun createFolder(path: String, name: String): Boolean
     suspend fun getFileList(path: String, counter: Int): List<File>

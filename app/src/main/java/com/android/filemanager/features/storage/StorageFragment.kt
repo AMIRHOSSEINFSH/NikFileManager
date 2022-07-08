@@ -1,22 +1,23 @@
 package com.android.filemanager.features.storage
 
 import android.animation.ObjectAnimator
-import android.graphics.Color
-import android.graphics.ColorFilter
+import android.content.Intent
 import android.os.Bundle
 import android.os.Environment
-import android.os.StatFs
+import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
+import androidx.core.content.FileProvider
+import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.filemanager.R
-import com.android.filemanager.core.BaseFragment
+import com.android.filemanager.core.*
 import com.android.filemanager.databinding.FragmentStorageBinding
+import com.android.filemanager.features.mimType.MimTypesActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 
@@ -28,7 +29,20 @@ class StorageFragment : BaseFragment<FragmentStorageBinding>(R.layout.fragment_s
 
     private val adapter by lazy {
         RecentFilesAdapter { fileModel ->
-
+            try {
+                val intent = Intent()
+                intent.action = Intent.ACTION_VIEW
+                intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+                intent.type = StorageHelper.getMimeType(fileModel.path)
+                intent.data = FileProvider.getUriForFile(
+                    requireContext(),
+                    requireContext().applicationContext.packageName + ".provider",
+                    fileModel
+                )
+                startActivity(intent)
+            } catch (e: Exception) {
+                showMessage(e.message ?: UNKNOWN_ERROR)
+            }
         }
     }
 
@@ -45,7 +59,23 @@ class StorageFragment : BaseFragment<FragmentStorageBinding>(R.layout.fragment_s
 
     private fun setUpListeners() {
         binding.image.setOnClickListener {
+            launchCategory(StorageHelper.MimTypes.IMAGE)
+        }
+        binding.video.setOnClickListener {
+            launchCategory(StorageHelper.MimTypes.VIDEO)
+        }
+        binding.document.setOnClickListener {
+            launchCategory(StorageHelper.MimTypes.DOCUMENTS)
+        }
+        binding.audio.setOnClickListener {
+            launchCategory(StorageHelper.MimTypes.Audio)
+        }
+    }
 
+    private fun launchCategory(type: StorageHelper.MimTypes) {
+        Intent(context, MimTypesActivity::class.java).apply {
+            putExtra(SHOW_MIMETYPE, type)
+            startActivity(this)
         }
     }
 

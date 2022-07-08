@@ -10,7 +10,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 
-abstract class BaseFragment<T: ViewDataBinding>(@LayoutRes private val layoutRes: Int):BaseView<T>,Fragment() {
+abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes private val layoutRes: Int) :
+    BaseView<T>, Fragment() {
 
     override var _binding: T? = null
 
@@ -19,7 +20,7 @@ abstract class BaseFragment<T: ViewDataBinding>(@LayoutRes private val layoutRes
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = DataBindingUtil.inflate(inflater,layoutRes,container,false)
+        _binding = DataBindingUtil.inflate(inflater, layoutRes, container, false)
         return binding.root
     }
 

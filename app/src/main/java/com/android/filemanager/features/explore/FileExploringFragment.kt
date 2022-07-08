@@ -19,6 +19,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.filemanager.R
 import com.android.filemanager.core.ActionOnList
 import com.android.filemanager.core.BaseFragment
+import com.android.filemanager.core.StorageHelper
+import com.android.filemanager.core.UNKNOWN_ERROR
 import com.android.filemanager.databinding.FragmentFileExploringBinding
 import com.android.filemanager.features.files.FileListAdapter
 import com.android.filemanager.features.storage.StorageViewModel
@@ -49,9 +51,20 @@ class FileExploringFragment :
                     )
                 }
             } else {
-                val intent = Intent(Intent.ACTION_VIEW)
-                intent.data = fileModel.toUri()
-                startActivity(intent)
+                try {
+                    val intent = Intent()
+                    intent.action = Intent.ACTION_VIEW
+                    intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+                    intent.type = StorageHelper.getMimeType(fileModel.path)
+                    intent.data = FileProvider.getUriForFile(
+                        requireContext(),
+                        requireContext().applicationContext.packageName + ".provider",
+                        fileModel
+                    )
+                    startActivity(intent)
+                } catch (e: Exception) {
+                    showMessage(e.message ?: UNKNOWN_ERROR)
+                }
             }
             shouldNavigate
         }, itemLongClicked = {

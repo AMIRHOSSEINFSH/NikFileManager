@@ -38,6 +38,13 @@
                 android:layout_height="@dimen/_36sdp" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:singleLine="true"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:focusable="true"
+                android:clickable="true"
+                android:focusableInTouchMode="true"
+                android:scrollHorizontally="true"
+                android:ellipsize="marquee"
                 app:compressFileName="@{file.name}"
                 android:textAppearance="?textAppearanceCaption"
                 app:layout_constraintStart_toStartOf="@id/icon"
@@ -46,7 +53,9 @@
                 android:id="@+id/txtName"
                 tools:text="folder Name"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content" >
+                <requestFocus />
+            </androidx.appcompat.widget.AppCompatTextView>
 
             <androidx.appcompat.widget.AppCompatTextView
                 app:setNumberOfFiles="@{file}"

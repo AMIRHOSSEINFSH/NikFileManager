@@ -122,6 +122,7 @@ class StorageViewModel @Inject constructor(
     }
 
     fun getLastObjInStack() = lastObjInStack
+
     //todo warning:it is necessary to   call these functions in backPressed callback function
     fun setLastObjInStack(fullPath: String?) {
         val stackFolder = StackFolder(

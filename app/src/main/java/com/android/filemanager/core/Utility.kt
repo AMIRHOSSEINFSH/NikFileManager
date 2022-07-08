@@ -1,7 +1,11 @@
 package com.android.filemanager.core
 
+import android.content.Context
+import android.database.Cursor
+import android.net.Uri
 import android.os.Parcel
 import android.os.Parcelable
+import android.widget.Toast
 import com.android.filemanager.data.model.dataClass.StackFolder
 import kotlinx.parcelize.Parcelize
 import java.io.File
@@ -45,6 +49,31 @@ fun StringBuffer.popLast(): Boolean {
     }
 }
 
+ fun Context.queryCursor(
+    uri: Uri,
+    projection: Array<String>,
+    selection: String? = null,
+    selectionArgs: Array<String>? = null,
+    sortOrder: String? = null,
+    showErrors: Boolean = false,
+    callback: (cursor: Cursor) -> Unit
+) {
+    try {
+        val cursor = contentResolver.query(uri, projection, selection, selectionArgs, sortOrder)
+        cursor?.use {
+            if (cursor.moveToFirst()) {
+                do {
+                    callback(cursor)
+                } while (cursor.moveToNext())
+            }
+        }
+    } catch (e: Exception) {
+        if (showErrors) {
+            Toast.makeText(this, e.message ?: UNKNOWN_ERROR, Toast.LENGTH_SHORT).show()
+        }
+    }
+}
+
 sealed class Resource<T>(
     val data: T? = null,
     val message: String? = null
@@ -67,7 +96,7 @@ sealed class Process(
     data class Cut(val list: List<String>) : Process(list)
 }
 
-sealed class ActionOnList( val path: String? = null) {
+sealed class ActionOnList(val path: String? = null) {
     class ADD(val newPath: String) : ActionOnList(newPath)
     class POP(val stackFolder: StackFolder?) : ActionOnList(stackFolder?.fullPath)
     class REFRESH() : ActionOnList()

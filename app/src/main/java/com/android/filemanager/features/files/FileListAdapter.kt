@@ -79,6 +79,7 @@ class FileListAdapter(
                 binding.materialContainer.isChecked = true
             }
             binding.file = file
+            binding.txtName.isSelected = true
         }
     }
 

@@ -36,12 +36,6 @@ class FilesFragment : BaseFragment<FragmentFilesBinding>(R.layout.fragment_files
         }
     }
 
-    private val recentAdapter by lazy {
-        RecentFilesAdapter { fileModel ->
-
-        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

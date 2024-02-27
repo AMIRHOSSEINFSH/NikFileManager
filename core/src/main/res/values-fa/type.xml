@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Bold2">
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="fontFamily">@font/rubik_fa_bold</item>
+    </style>
+
+    <style name="Bold3">
+        <item name="android:textSize">@dimen/_16ssp</item>
+        <item name="fontFamily">@font/rubik_fa_bold</item>
+    </style>
+
+    <style name="Regular1">
+        <item name="android:textSize">@dimen/_10ssp</item>
+        <item name="fontFamily">@font/rubik_fa_regular</item>
+    </style>
+
+    <style name="Regular2">
+        <item name="android:textSize">@dimen/_11ssp</item>
+        <item name="fontFamily">@font/rubik_fa_regular</item>
+    </style>
+
+    <style name="Regular3">
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="fontFamily">@font/rubik_fa_regular</item>
+    </style>
+
+    <style name="Light1">
+        <item name="android:textSize">@dimen/_8ssp</item>
+        <item name="fontFamily">@font/rubik_fa_light</item>
+    </style>
+
+    <style name="Light2">
+        <item name="android:textSize">@dimen/_10ssp</item>
+        <item name="fontFamily">@font/rubik_fa_light</item>
+    </style>
+
+    <style name="Light3">
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="fontFamily">@font/rubik_fa_light</item>
+    </style>
+
+</resources>

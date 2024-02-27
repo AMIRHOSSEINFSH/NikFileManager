@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--region  Custom Colors-->
+    <color name="default_bg_color">@color/black</color>
+    <color name="colorIndicator">@color/cyan</color>
+    <color name="card_bottom_color">@color/white</color>
+    <color name="grayTv">@color/boulder</color>
+    <color name="color_in_completed_upload_status">#F9F9F9</color>
+    <color name="color_done_uploaded_status">#1FAB80</color>
+    <color name="color_wrong_uploaded_status">#EA3943</color>
+    <color name="cadet_grey">#90A4AE</color>
+    <color name="slate_gray">#8A8C93</color>
+    <color name="lavender_gray">#F7F6F9</color>
+    <color name="color_bg_sign_google">#CCF8F8F8</color>
+    <color name="color_bg_card_referral_link">@color/blue_grey_alpha_5</color>
+    <color name="referralBox_color">@color/white</color>
+    <color name="color_bg_history_box">@color/white</color>
+    <color name="un_selected_round_bg">#3390A4AE</color>
+    <color name="un_selected_txt_bg">#FF90A4AE</color>
+    <color name="selected_txt_bg">@color/cyan</color>
+    <color name="fruit_salad">#559D64</color>
+    <color name="lochinvar">#CBCED1</color>
+    <color name="blue_grey_900">#24304D</color>
+    <color name="Tuna">#353945</color>
+    <color name="bright_gray_alpha_30">#4D303653</color>
+    <color name="vulcan">#192643</color>
+    <color name="nobel">#B3AEAE</color>
+    <color name="nobel_alpha_20">#33B3AEAE</color>
+    <color name="blue_grey">#F3F3F4</color>
+    <color name="grey_10">#E6E6E6</color>
+    <color name="grey_alpha_20">#00303653</color>
+    <color name="grey_alpha_100">@color/nobel_alpha_20</color>
+    <color name="blue_white_alpha_5">#3DEFF7FF</color>
+    <color name="blue_grey_alpha_5">#0D303653</color>
+    <color name="blue_grey_alpha_20">#3329344E</color>
+    <color name="blue_grey_alpha_40">#f1f1f3</color>
+    <color name="blue_grey_alpha_60">#9929344E</color>
+    <color name="blue_grey_alpha_70">#B329344E</color>
+    <color name="blue_grey_alpha_65">#607D8B</color>
+    <color name="blue_grey_alpha_75">@color/alabaster</color>
+    <color name="blue_grey_alpha_80">@color/alabaster</color>
+    <color name="blue_grey_alpha_90">@color/alabaster</color>
+    <color name="blue_grey_alpha_100">#29344E</color>
+    <color name="boulder">#7A7A7A</color>
+    <color name="boulder_light">#9F9F9F</color>
+    <color name="boulder_light_100">#D9D9D9</color>
+    <color name="gallery">#ECECEC</color>
+    <color name="cloud_burst">#192642</color>
+    <color name="alabaster">#F8F8F8</color>
+    <color name="alto">#E0DCDC</color>
+    <color name="mirage">#1B1F32</color>
+    <color name="colorTint">@color/white</color>`
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="GreenDark">#198F86</color>
+    <color name="orange">#FFAB00</color>
+    <color name="bright_sun_dark">#F3BA39</color>
+    <color name="bright_sun_transparent">#1AE5B265</color>
+    <color name="bright_sun">#FFCD43</color>
+    <color name="bright_sun_light">#FFDC82</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="blue_zodiac">#142953</color>
+    <color name="bunker">#090F1B</color>
+    <color name="colorAbbr">#a8a9a8</color>
+    <color name="Red">#EA3943</color>
+    <color name="red_bg">#FFF0F2</color>
+    <color name="red_1">#EC4F4F</color>
+    <color name="red_2">#FFE2E2</color>
+    <color name="red_6">#FFF0F2</color>
+    <color name="RedDark">#861F1F</color>
+    <color name="RedDarker">#653939</color>
+    <color name="Green">#229471</color>
+    <color name="green_lightt">#00D97E</color>
+    <color name="green_bg">#F2F9F6</color>
+    <color name="Green_Dark">#407943</color>
+    <color name="cyan">#17D7DE</color>
+    <color name="cyan_bg">#1A17D7DE</color>
+    <color name="mako">#404247</color>
+    <color name="pre">#8A53FF</color>
+    <color name="cyan_light">#6FF3F8</color>
+    <color name="gold_yellow">#FCCA3F</color>
+    <!--endregion-->
+
+    <!--region TextView Styles colors-->
+    <color name="mtrl_textinput_default_box_stroke_color">@color/strokeColor</color>
+    <color name="lightTextViewColor">@color/grayTv</color>
+    <color name="regularTextViewColor">@color/grayTv</color>
+    <color name="boldTextViewColor">@color/black</color>
+    <!--endregion-->
+
+    <!--region EditText Styles colors-->
+    <color name="benefit_background_color">@color/green_bg</color>
+    <color name="strokeColor">@color/gallery</color>
+    <color name="editText_textColor">@color/black</color>
+    <!--endregion-->
+
+</resources>

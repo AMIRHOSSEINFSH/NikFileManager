@@ -24,12 +24,12 @@ fun View.setHeightResizeAnimator(
     anim.duration = duration
     anim.addListener(object : AnimatorListenerAdapter() {
 
-        override fun onAnimationStart(animation: Animator?) {
+        override fun onAnimationStart(animation: Animator) {
             super.onAnimationStart(animation)
             onStart?.invoke()
         }
 
-        override fun onAnimationEnd(animation: Animator?) {
+        override fun onAnimationEnd(animation: Animator) {
             super.onAnimationEnd(animation)
             onEnd?.invoke()
         }

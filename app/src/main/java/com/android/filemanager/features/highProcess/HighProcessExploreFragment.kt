@@ -37,10 +37,10 @@ class HighProcessExploreFragment :
         FileListNavigateAdapter { fileModel ->
             viewModel.destinationPath = fileModel.path
             viewModel.addNewPath(fileModel.name)
-            findNavController().navigate(
+            /*findNavController().navigate(
                 HighProcessExploreFragmentDirections.actionHighProcessExploreFragmentSelf2()
                     .setPath(fileModel.path)
-            )
+            )*/
 
         }
     }
@@ -60,7 +60,7 @@ class HighProcessExploreFragment :
             object: OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     if (!viewModel.processIsWorking) {
-                        if (findNavController().backQueue.size != 2) {
+                        if (findNavController().currentBackStack.value.size != 2) {
                             viewModel.popLastPath()
                             findNavController().popBackStack()
                         }else {

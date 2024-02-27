@@ -10,241 +10,267 @@
         tools:context=".features.storage.StorageFragment">
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_marginHorizontal="@dimen/_18sdp"
+            android:layoutDirection="locale"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:paddingBottom="@dimen/_12sdp"
+            <com.google.android.material.card.MaterialCardView
+                android:layoutDirection="inherit"
                 android:layout_marginVertical="@dimen/_24sdp"
-                android:background="@drawable/bg_boxes"
+                style="@style/cardItemNoElevationFullCornerStyle"
+                app:cardBackgroundColor="@color/blue_grey_alpha_70"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.skydoves.powerspinner.PowerSpinnerView
-                    android:background="@drawable/bg_boxes"
-                    android:backgroundTint="@color/white"
-                    android:id="@+id/spinner"
-                    android:layout_marginTop="@dimen/_12sdp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/internal"
-                    android:padding="@dimen/_8sdp"
-                    android:textSize="@dimen/_12sdp"
-                    app:spinner_arrow_gravity="end"
-                    app:spinner_arrow_padding="@dimen/_6sdp"
-                    app:spinner_arrow_tint="@color/txtColor"
-                    app:spinner_divider_color="@android:color/transparent"
-                    app:spinner_divider_show="true"
-                    app:spinner_divider_size="0.4dp"
-                    app:spinner_popup_animation="dropdown"
-                    app:spinner_popup_elevation="@dimen/_12sdp" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layoutDirection="inherit"
+                    android:paddingTop="@dimen/_12sdp"
+                    android:paddingBottom="@dimen/_12sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <ProgressBar
-                    android:indeterminateOnly="false"
-                    android:progressDrawable="@drawable/circular_progress"
-                    android:indeterminateTintMode="src_atop"
-                    android:id="@+id/progress_circular"
-                    android:layout_width="@dimen/_112sdp"
-                    android:layout_height="@dimen/_112sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.502"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/spinner" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/txtProgress"
-                    tools:text="19%"
-                    app:layout_constraintBottom_toBottomOf="@+id/progress_circular"
-                    app:layout_constraintTop_toTopOf="@+id/progress_circular"
-                    app:layout_constraintEnd_toEndOf="@+id/progress_circular"
-                    app:layout_constraintStart_toStartOf="@+id/progress_circular"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <View
-                    android:layout_marginEnd="@dimen/_4sdp"
-                    android:id="@+id/view_used"
-                    android:layout_width="@dimen/_12sdp"
-                    android:layout_height="@dimen/_12sdp"
-                    android:background="@drawable/bg_corner_4sdp"
-                    android:backgroundTint="@color/button_selected"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/used_space"
-                    app:layout_constraintTop_toBottomOf="@+id/progress_circular" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:textAppearance="?textAppearanceSubtitle2"
-                    android:id="@+id/symbol_used"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_minus4sdp"
-                    android:text="@string/used"
-                    app:layout_constraintBottom_toTopOf="@+id/view_used"
-                    app:layout_constraintStart_toStartOf="@+id/progress_circular" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/used_space"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_minus4sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/symbol_used"
-                    app:layout_constraintStart_toStartOf="@+id/symbol_used"
-                    app:layout_constraintTop_toBottomOf="@+id/view_used"
-                    tools:text="48 GB" />
-
-                <View
-                    android:layout_marginEnd="@dimen/_24sdp"
-                    android:id="@+id/view_free"
-                    android:layout_width="@dimen/_12sdp"
-                    android:layout_height="@dimen/_12sdp"
-                    android:layout_marginTop="@dimen/_16sdp"
-                    android:background="@drawable/bg_corner_4sdp"
-                    android:backgroundTint="@color/unUsed"
-                    app:layout_constraintEnd_toEndOf="@+id/progress_circular"
-                    app:layout_constraintTop_toBottomOf="@+id/progress_circular" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:textAppearance="?textAppearanceSubtitle2"
-                    android:layout_marginBottom="@dimen/_minus4sdp"
-                    android:id="@+id/symbol_unUsed"
-                    android:text="@string/free"
-                    android:layout_marginStart="@dimen/_8sdp"
-                    app:layout_constraintStart_toEndOf="@+id/view_free"
-                    app:layout_constraintBottom_toTopOf="@+id/view_free"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/free_space"
-                    android:layout_marginTop="@dimen/_minus4sdp"
-                    tools:text="48 GB"
-                    android:layout_marginStart="@dimen/_6sdp"
-                    app:layout_constraintStart_toEndOf="@+id/view_free"
-                    app:layout_constraintTop_toBottomOf="@+id/view_free"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:paddingVertical="@dimen/_24sdp"
-                android:background="@drawable/bg_boxes"
-                android:layout_marginTop="@dimen/_24sdp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:id="@+id/image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintEnd_toStartOf="@+id/video"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="@dimen/_24sdp"
-                        android:layout_height="@dimen/_24sdp"
-                        android:layout_gravity="center_horizontal"
+                    <com.skydoves.powerspinner.PowerSpinnerView
+                        android:layoutDirection="inherit"
+                        android:background="@drawable/bg_boxes"
+                        android:backgroundTint="@color/white"
+                        android:id="@+id/spinner"
                         app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_image_banner" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:textStyle="bold"
-                        android:textAppearance="?textAppearanceSubtitle2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Images" />
+                        android:hint="@string/internal"
+                        android:padding="@dimen/_8sdp"
+                        android:textSize="@dimen/_12sdp"
+                        app:spinner_arrow_gravity="end"
+                        app:spinner_arrow_padding="@dimen/_6sdp"
+                        app:spinner_arrow_tint="@color/default_bg_color"
+                        app:spinner_divider_color="@android:color/transparent"
+                        app:spinner_divider_show="true"
+                        app:spinner_divider_size="0.4dp"
+                        app:spinner_popup_animation="dropdown"
+                        app:spinner_popup_elevation="@dimen/_12sdp" />
 
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:id="@+id/video"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintEnd_toStartOf="@+id/document"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/image"
-                    app:layout_constraintTop_toTopOf="@+id/image">
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        app:srcCompat="@drawable/ic_video_banner"
-                        android:layout_width="@dimen/_24sdp"
-                        android:layout_height="@dimen/_24sdp"
-                        android:layout_gravity="center_horizontal"
-                        />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:textAppearance="?textAppearanceSubtitle2"
-                        android:textStyle="bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Videos" />
-
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:id="@+id/document"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintEnd_toStartOf="@+id/audio"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/video"
-                    app:layout_constraintTop_toTopOf="@+id/video">
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="@dimen/_24sdp"
-                        android:layout_height="@dimen/_24sdp"
-                        android:layout_gravity="center_horizontal"
-                        app:srcCompat="@drawable/ic_doc_banner" />
+                    <ProgressBar
+                        android:indeterminateOnly="false"
+                        android:progressDrawable="@drawable/circular_progress"
+                        android:indeterminateTintMode="src_atop"
+                        android:id="@+id/progress_circular"
+                        android:layout_width="@dimen/_112sdp"
+                        android:layout_height="@dimen/_112sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.502"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/spinner" />
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:textAppearance="?textAppearanceSubtitle2"
-                        android:textStyle="bold"
+                        style="@style/textViewBold2"
+                        android:id="@+id/txtProgress"
+                        tools:text="19%"
+                        app:layout_constraintBottom_toBottomOf="@+id/progress_circular"
+                        app:layout_constraintTop_toTopOf="@+id/progress_circular"
+                        app:layout_constraintEnd_toEndOf="@+id/progress_circular"
+                        app:layout_constraintStart_toStartOf="@+id/progress_circular"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Document" />
+                        android:layout_height="wrap_content" />
 
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:id="@+id/audio"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/document"
-                    app:layout_constraintTop_toTopOf="@+id/document">
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="@dimen/_24sdp"
-                        android:layout_height="@dimen/_24sdp"
-                        android:layout_gravity="center_horizontal"
-                        app:srcCompat="@drawable/ic_audio_banner"
-                         />
+                    <View
+                        android:id="@+id/view_used"
+                        android:layout_width="@dimen/_12sdp"
+                        android:layout_height="@dimen/_12sdp"
+                        android:layout_marginStart="@dimen/_minus8sdp"
+                        android:background="@drawable/bg_corner_4sdp"
+                        android:backgroundTint="@color/button_selected"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/progress_circular"
+                        app:layout_constraintTop_toBottomOf="@+id/progress_circular" />
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:textAppearance="?textAppearanceSubtitle2"
-                        android:textStyle="bold"
+                        android:textColor="@color/default_bg_color"
+                        android:layout_marginStart="@dimen/_4sdp"
+                        android:id="@+id/symbol_used"
+                        style="@style/textViewRegular1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Audio" />
+                        android:layout_marginBottom="@dimen/_minus4sdp"
+                        android:text="@string/used"
+                        app:layout_constraintBottom_toTopOf="@+id/view_used"
+                        app:layout_constraintStart_toEndOf="@+id/view_used" />
 
-                </androidx.appcompat.widget.LinearLayoutCompat>
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:textColor="@color/default_bg_color"
+                        android:id="@+id/used_space"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_minus4sdp"
+                        android:textSize="@dimen/_11ssp"
+                        style="@style/textViewRegular2"
+                        app:layout_constraintStart_toStartOf="@+id/symbol_used"
+                        app:layout_constraintTop_toBottomOf="@+id/view_used"
+                        tools:text="48 GB" />
+
+                    <View
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        android:id="@+id/view_free"
+                        android:layout_width="@dimen/_12sdp"
+                        android:layout_height="@dimen/_12sdp"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:background="@drawable/bg_corner_4sdp"
+                        android:backgroundTint="@color/unUsed"
+                        app:layout_constraintEnd_toEndOf="@+id/progress_circular"
+                        app:layout_constraintTop_toBottomOf="@+id/progress_circular" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:textColor="@color/default_bg_color"
+                        style="@style/textViewRegular1"
+                        android:layout_marginBottom="@dimen/_minus4sdp"
+                        android:id="@+id/symbol_unUsed"
+                        android:text="@string/free"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        app:layout_constraintStart_toEndOf="@+id/view_free"
+                        app:layout_constraintBottom_toTopOf="@+id/view_free"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:textColor="@color/default_bg_color"
+                        android:id="@+id/free_space"
+                        android:layout_marginTop="@dimen/_minus4sdp"
+                        tools:text="48 GB"
+                        android:textSize="@dimen/_11ssp"
+                        style="@style/textViewRegular2"
+                        android:layout_marginStart="@dimen/_6sdp"
+                        app:layout_constraintStart_toEndOf="@+id/view_free"
+                        app:layout_constraintTop_toBottomOf="@+id/view_free"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                app:cardBackgroundColor="@color/blue_grey_alpha_70"
+                style="@style/cardItemNoElevationFullCornerStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:paddingVertical="@dimen/_12sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toStartOf="@+id/video"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="@dimen/_24sdp"
+                            android:layout_height="@dimen/_24sdp"
+                            android:layout_gravity="center_horizontal"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/ic_image_banner" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_marginTop="@dimen/_4sdp"
+                            style="@style/textViewBold2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/images" />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/video"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toStartOf="@+id/document"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/image"
+                        app:layout_constraintTop_toTopOf="@+id/image">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            app:srcCompat="@drawable/ic_video_banner"
+                            android:layout_width="@dimen/_24sdp"
+                            android:layout_height="@dimen/_24sdp"
+                            android:layout_gravity="center_horizontal"
+                            />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_marginTop="@dimen/_4sdp"
+                            style="@style/textViewBold2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/videos" />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/document"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toStartOf="@+id/audio"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/video"
+                        app:layout_constraintTop_toTopOf="@+id/video">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="@dimen/_24sdp"
+                            android:layout_height="@dimen/_24sdp"
+                            android:layout_gravity="center_horizontal"
+                            app:srcCompat="@drawable/ic_doc_banner" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_marginTop="@dimen/_4sdp"
+                            style="@style/textViewBold2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/document" />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/audio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/document"
+                        app:layout_constraintTop_toTopOf="@+id/document">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="@dimen/_24sdp"
+                            android:layout_height="@dimen/_24sdp"
+                            android:layout_gravity="center_horizontal"
+                            app:srcCompat="@drawable/ic_audio_banner"
+                            />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_marginTop="@dimen/_4sdp"
+                            style="@style/textViewBold2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/audio" />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_marginTop="@dimen/_24sdp"

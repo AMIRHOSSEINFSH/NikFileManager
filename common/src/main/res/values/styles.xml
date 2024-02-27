@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--region TextView Styles-->
+
+    <style name="TextViewLight1" parent="Widget.AppCompat.TextView">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/regularTextViewColor</item>
+        <item name="android:textAppearance">@style/Light1</item>
+    </style>
+
+    <style name="TextViewLight2" parent="Widget.AppCompat.TextView">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/regularTextViewColor</item>
+        <item name="android:textAppearance">@style/Light2</item>
+    </style>
+
+
+    <style name="TextViewLight3" parent="Widget.AppCompat.TextView">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/lightTextViewColor</item>
+        <item name="android:textAppearance">@style/Light3</item>
+    </style>
+
+    <style name="textViewRegular1">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/regularTextViewColor</item>
+        <item name="android:textAppearance">@style/Regular1</item>
+    </style>
+
+    <style name="textViewRegular2">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/regularTextViewColor</item>
+        <item name="android:textAppearance">@style/Regular2</item>
+    </style>
+
+    <style name="textViewRegular3">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/regularTextViewColor</item>
+        <item name="android:textAppearance">@style/Regular3</item>
+    </style>
+
+    <style name="textViewBold1" parent="Widget.AppCompat.TextView">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/boldTextViewColor</item>
+        <item name="android:textAppearance">@style/Bold1</item>
+    </style>
+
+    <style name="textViewBold2" parent="Widget.AppCompat.TextView">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/boldTextViewColor</item>
+        <item name="android:textAppearance">@style/Bold2</item>
+    </style>
+
+    <style name="textViewBold3" parent="Widget.AppCompat.TextView">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/boldTextViewColor</item>
+        <item name="android:textAppearance">@style/Bold3</item>
+    </style>
+
+
+    <!--endregion-->
+
+    <!--region CardView Styles-->
+
+    <style name="ThemeOverlay.MyApp.ElevationOverlayDisabled" parent="">
+        <item name="elevationOverlayEnabled">false</item>
+        <item name="elevationOverlayColor">#000</item>
+    </style>
+
+    <style name="cardLightStyle" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="cardElevation">0dp</item>
+        <item name="cardCornerRadius">@dimen/radius_corner_default</item>
+        <item name="cardBackgroundColor">@color/white</item>
+    </style>
+
+    <style name="CustomCardViewStyleNonCorner" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_card_custom_not_corners
+        </item>
+        <item name="cardBackgroundColor">@color/white</item>
+        <item name="cardElevation">0dp</item>
+    </style>
+
+    <style name="CustomCardViewStyleElevation" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="cardElevation">@dimen/regular_card_elevation</item>
+        <item name="cardCornerRadius">@dimen/radius_corner_default</item>
+        <item name="cardBackgroundColor">@color/white</item>
+        <item name="divider">@android:color/transparent</item>
+        <item name="android:dividerHeight">0.0dp</item>
+        <item name="android:clipToPadding">false</item>
+        <item name="android:clipChildren">false</item>
+        <item name="cardPreventCornerOverlap">false</item>
+    </style>
+
+    <style name="CustomCardViewStyleTop" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/white</item>
+        <item name="cardElevation">0dp</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_card_custom_corners_top
+        </item>
+    </style>
+
+    <style name="CustomCardViewStyleTopElevation" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/white</item>
+        <item name="cardElevation">@dimen/bold_card_elevation</item>
+        <item name="divider">@android:color/transparent</item>
+        <item name="android:dividerHeight">0.0dp</item>
+        <item name="android:clipToPadding">false</item>
+        <item name="android:clipChildren">false</item>
+        <item name="cardPreventCornerOverlap">false</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_card_custom_corners_top
+        </item>
+    </style>
+
+    <style name="CustomCardViewStyleBottom" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/card_bottom_color</item>
+        <item name="cardElevation">0dp</item>
+        <item name="shapeAppearanceOverlay">
+            @style/ShapeAppearanceOverlay_card_custom_corners_bottom
+        </item>
+    </style>
+
+    <!--endregion-->
+
+    <!--region Custom styles-->
+    <style name="ShapeAppearanceOverlay_card_custom_corners_top">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">@dimen/radius_corner_default</item>
+        <item name="cornerSizeTopLeft">@dimen/radius_corner_default</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay_card_custom_corners_bottom">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeBottomRight">@dimen/radius_corner_default</item>
+        <item name="cornerSizeBottomLeft">@dimen/radius_corner_default</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay_card_custom_not_corners">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+    <!--endregion-->
+
+
+
+    <!--region TabLayout Styles-->
+    <style name="MyTabLayout" parent="Widget.MaterialComponents.TabLayout">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="tabTextColor">@color/grayTv</item>
+        <item name="background">@null</item>
+        <item name="android:background">@null</item>
+        <item name="rippleColor">@null</item>
+        <item name="tabRippleColor">@null</item>
+        <item name="tabTextAppearance">@style/Regular1</item>
+        <item name="tabSelectedTextAppearance">@style/Bold1</item>
+        <item name="tabIndicatorColor">@color/colorIndicator</item>
+        <item name="tabSelectedTextColor">@color/black</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="tabIndicatorAnimationMode">elastic</item>
+        <item name="tabIndicatorFullWidth">false</item>
+
+    </style>
+    <!--endregion-->
+
+
+    <style name="MyCustomTextAppearance" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="tabTextAppearance">@style/Bold2</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="myInputEditText" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="boxBackgroundColor">@color/blue_grey_alpha_90</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/radius_corner_default</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/radius_corner_default</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/radius_corner_default</item>
+        <item name="boxCornerRadiusTopStart">@dimen/radius_corner_default</item>
+        <item name="boxStrokeWidth">@dimen/default_stroke_wight</item>
+        <item name="boxStrokeColor">@color/cyan</item>
+        <item name="boxStrokeWidthFocused">@dimen/default_stroke_wight</item>
+      <!--  <item name="boxStrokeErrorColor">@color/Red</item>
+        <item name="errorIconDrawable">@null</item>-->
+
+    </style>
+
+    <!--region Button styles-->
+    <style name="buttonFullCornerNoElevation" parent="Widget.MaterialComponents.Button">
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:textAppearance">@style/Bold2</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="cornerRadius">@dimen/default_button_corner_radius</item>
+        <item name="android:strokeColor">@color/cyan</item>
+        <item name="android:textAppearanceButton">@style/textViewBold2</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <!--endregion-->
+
+</resources>

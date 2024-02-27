@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="radius_corner_min_size">@dimen/_4sdp</dimen>
+    <dimen name="bold_card_elevation">@dimen/_10sdp</dimen>
+    <dimen name="radius_corner_default">@dimen/_8sdp</dimen>
+    <dimen name="regular_card_elevation">@dimen/_2sdp</dimen>
+    <dimen name="list_item_spacing_half">@dimen/_4sdp</dimen>
+    <dimen name="default_bg_margin">@dimen/_10sdp</dimen>
+    <dimen name="default_box_padding_profile">@dimen/_10sdp</dimen>
+    <dimen name="default_bg_padding">@dimen/_5sdp</dimen>
+    <dimen name="default_bg_padding_secondary">@dimen/_15sdp</dimen>
+    <dimen name="default_button_height_size">@dimen/_37sdp</dimen>
+    <dimen name="default_EditText_height_size">@dimen/_38sdp</dimen>
+    <dimen name="default_horizontal_margin">@dimen/_10sdp</dimen>
+    <dimen name="default_stroke_wight">0.5dp</dimen>
+    <dimen name="default_stroke_wight_button">1dp</dimen>
+    <dimen name="default_button_corner_radius">@dimen/_8sdp</dimen>
+    <dimen name="list_item_spacing">@dimen/_4sdp</dimen>
+    <dimen name="divider_bottomSheet_width_size">@dimen/_56sdp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="default_toolbar_height">@dimen/_45sdp</dimen>
+    <dimen name="default_stroke_size">@dimen/_2sdp</dimen>
+
+    <dimen name="alerter_activity_horizontal_margin">@dimen/_18sdp</dimen>
+    <dimen name="alerter_activity_vertical_margin">@dimen/_16sdp</dimen>
+    <dimen name="alerter_padding_small">@dimen/_4sdp</dimen>
+    <dimen name="alerter_padding_half">@dimen/_8sdp</dimen>
+    <dimen name="alerter_padding_default">@dimen/_10sdp</dimen>
+    <dimen name="alerter_alert_padding">30dp</dimen>
+    <dimen name="alerter_alert_negative_margin_top">@dimen/_10sdp</dimen>
+    <dimen name="alerter_progress_bar_size">@dimen/_2sdp</dimen>
+    <!-- Alerts -->
+    <dimen name="alerter_alert_min_height">@dimen/_60sdp</dimen>
+    <dimen name="alerter_alert_max_height">@dimen/_80sdp</dimen>
+    <dimen name="alerter_alert_icn_size">38dp</dimen>
+    <dimen name="alerter_alert_progress_size">32dp</dimen>
+    <!-- Text sizes -->
+    <dimen name="alerter_text_small">14sp</dimen>
+    <dimen name="alerter_text_medium">18sp</dimen>
+    <dimen name="alerter_alert_view_padding_top">70dp</dimen>
+    <dimen name="default_divider_height">0.8dp</dimen>
+</resources>

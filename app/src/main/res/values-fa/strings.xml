@@ -11,9 +11,6 @@
     <string name="recent_files">فایل های اخیر</string>
     <string name="explore">اکسپلور</string>
 
-    <string name="access_storage_prompt">لطفا دسترسی لازم به فایل های دستگاه را فراهم کنید.بدون آن برنامه به درستی کار نمی کند!</string>
-    <string name="yes">yes</string>
-    <string name="no">no</string>
     <string name="unknownError">خطا نامشخص رخ داده!</string>
     <string name="search">جست و جو در این پوشه</string>
     <string name="numbersSelected">%s انتخاب شده</string>
@@ -29,6 +26,14 @@
     <string name="paste">درج</string>
     <string name="source">از</string>
     <string name="destination">به</string>
+
+    <string name="images">تصاویر</string>
+    <string name="videos">ویدوها</string>
+    <string name="document">مدارک</string>
+    <string name="audio">صداها</string>
+
+    <string name="usb_connected">برای باز کردن دستگاه Usb ضربه بزنید</string>
+
     <string-array name="alertHistorySorts">
         <item>درونی</item>
         <item>بیرونی</item>

@@ -4,15 +4,12 @@
     <string name="external">External</string>
     <string name="files">Files</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="access_storage_prompt">Please grant our app access to all your files, it might not work well without it.</string>
     <string name="internal">internal</string>
     <string name="used">Used</string>
     <string name="free">Free</string>
     <string name="items">items</string>
     <string name="recent_files">Recent Files</string>
     <string name="explore">Explore</string>
-    <string name="yes">yes</string>
-    <string name="no">no</string>
     <string name="unknownError">Unknown Error Occurred</string>
     <string name="search">search in this directory</string>
     <string name="numbersSelected">%s selected</string>
@@ -30,4 +27,10 @@
     <string name="paste">Paste</string>
     <string name="source">from</string>
     <string name="destination">To</string>
+    <string name="images">Images</string>
+    <string name="videos">Videos</string>
+    <string name="document">Document</string>
+    <string name="audio">Audio</string>
+
+    <string name="usb_connected">tap to Open Usb Device</string>
 </resources>

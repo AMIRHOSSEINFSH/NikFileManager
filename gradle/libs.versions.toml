@@ -1,0 +1,209 @@
+[versions]
+# plugins
+android-gradle                      = "8.2.2"
+
+detekt                              = "1.23.1"
+detekt-twitter-compose              = "0.0.26"
+embraceSwazzler                     = "6.2.1"
+junit                               = "1.8.2.1"
+ksp                                 = "1.8.0-1.0.8"
+ktlint                              = "3.13.0"
+firebase_base                       = "4.3.15"
+firebase_crashlytic                 = "2.9.9"
+bugseeAndroidPlugin                 = "3.2"
+localization = "1.2.11"
+paging_version                      = "3.2.1"
+
+# production libraries
+preViewer                           = "1.0.0"
+datePicker_version                  = "0.1.2"
+lottie                              = "6.0.0"
+multidex                            = "2.0.1"
+accompanist                         = "0.28.0"
+appcompat                           = "1.6.1"
+material                            = "1.11.0"
+constraintlayout                    = "2.1.4"
+fragment_version                            = "1.6.2"
+coil                                = "2.4.0"
+hilt                                = "2.46.1"
+kotlin                              = "1.9.0"
+kotlin-core                         = "1.12.0"
+coroutines                          = "1.7.3"
+kotlin-serialization                = "1.4.1"
+kotlin-serialization-converter      = "0.8.0"
+lifecycle                           = "2.7.0"
+navigation                          = "2.7.6"
+navigation-hilt                     = "1.0.0"
+okhttp                              = "4.10.0"
+gson                               = "2.10.1"
+retrofit                            = "2.9.0"
+room                                = "2.5.0"
+timber                              = "5.0.1"
+sdp                                 = "1.1.0"
+utilcodex                           = "1.31.0"
+shimmer                              = "v1.3"
+socket                              = "2.1.0"
+dataStore                           = "1.0.0"
+viewpager2                          = "1.0.0"
+banner                              = "1.0.2"
+pinview                             ="1.4.4"
+swipeVersion                        ="1.1.0"
+animatedPieView                     ="1.3.0"
+sneaker                             ="2.0.0"
+zXingVersion                        = "3.4.1"
+codeScannerVerion                   = "2.3.2"
+rxbinding                           = "4.0.0"
+firebase                            = "32.5.0"
+recaptcha_version                   = "18.4.0"
+bioMetricVersion                    = "1.1.0"
+gestureLocker_version               = "1.0.0"
+toggle_botton                       = "1.4.1"
+flexbox_layout                       = "3.0.0"
+stateProgressBar_version            = "1.0.0"
+asssent_permission_version          = "3.0.0-RC4"
+easyImage_version                   = "3.2.0"
+compressor_version                  = "3.0.1"
+segmented_version                   = "1.0.5"
+spinner_version                     = "1.2.7"
+
+# test libraries
+test-junit                          = "4.13.2"
+android-junit                       = "1.1.5"
+test-mockk                          = "1.13.3"
+test-turbine                        = "0.12.1"
+
+
+# android test libraries
+test-android-runner                 = "1.5.2"
+espresso-core = "3.5.1"
+
+
+[plugins]
+kotlin-plugin                       = { id = "org.jetbrains.kotlin.kotlin-gradle-plugin", version.ref = "kotlin" }
+android-application                 = { id = "com.android.application", version.ref = "android-gradle" }
+android-library                     = { id = "com.android.library", version.ref = "android-gradle" }
+detekt                              = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+hilt                                = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+kotlin                              = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-kapt                         = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+kotlin-parcelize                    = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
+kotlin-serialization                = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+nav_safeArgs                        = { id = "androidx.navigation.safeargs.kotlin", version.ref = "navigation" }
+firebase                            = { id = "com.google.gms.google-services", version.ref = "firebase_base" }
+firebase-crashlytics                = { id = "com.google.firebase.crashlytics", version.ref = "firebase_crashlytic" }
+embrace-swazzler                    = { id = "io.embrace.swazzler" , version.ref = "embraceSwazzler"}
+
+
+
+
+[libraries]
+# production libraries
+
+embrace-swazzler-plugin                    = { module = "io.embrace:embrace-swazzler", version.ref = "embraceSwazzler" }
+kotlin-gradle-plugin                       = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+segmented-control                       = { module = "com.github.danledian:SegmentedControl", version.ref ="segmented_version" }
+
+power_spinner                           = { module = "com.github.skydoves:powerspinner", version.ref = "spinner_version" }
+previewer                              = { module = "com.github.COPS-IITBHU:Previewer", version.ref = "preViewer" }
+embrace-swazzler                     = { module = "io.embrace:embrace-android-sdk", version.ref = "embraceSwazzler" }
+bioMetric                             = { module= "androidx.biometric:biometric", version.ref="bioMetricVersion" }
+localization                        = { module = "com.akexorcist:localization", version.ref = "localization" }
+pagination                          = {module = "androidx.paging:paging-runtime",version.ref= "paging_version" }
+zXing                               = { module = "com.google.zxing:core", version.ref = "zXingVersion" }
+stateProgressBar                    = { module = "com.kofigyan.stateprogressbar:stateprogressbar", version.ref = "stateProgressBar_version" }
+codeScanner                         = { module = "com.github.yuriy-budiyev:code-scanner", version.ref = "codeScannerVerion" }
+swipeRef                            = { module="androidx.swiperefreshlayout:swiperefreshlayout",version.ref="swipeVersion" }
+lottieAnimation                     = {module= "com.airbnb.android:lottie",version.ref = "lottie"}
+multidex                            ={module="androidx.multidex:multidex",version.ref="multidex"}
+koltin-core                         ={module="androidx.core:core-ktx",version.ref="kotlin-core"}
+appcompat                           ={module="androidx.appcompat:appcompat",version.ref="appcompat"}
+material                            ={module="com.google.android.material:material",version.ref="material"}
+constraintlayout                    ={module="androidx.constraintlayout:constraintlayout",version.ref="constraintlayout"}
+framgnet                            ={module="androidx.fragment:fragment-ktx",version.ref="fragment_version"}
+coil                                = { module = "io.coil-kt:coil", version.ref = "coil" }
+coil-svg                            = { module = "io.coil-kt:coil-svg", version.ref = "coil" }
+hilt                                = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hilt-compiler                       = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
+retrofit                            = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+okhttp-bom                          = { module = "com.squareup.okhttp3:okhttp-bom", version.ref = "okhttp" }
+okhttp                              = { module = "com.squareup.okhttp3:okhttp"}
+okhttp-logging-interceptor          = { module = "com.squareup.okhttp3:logging-interceptor"}
+socket                              = { module = "io.socket:socket.io-client",version.ref="socket"}
+gson                               = { module = "com.google.code.gson:gson" ,version.ref="gson"}
+gson-converter                     = { module = "com.squareup.retrofit2:converter-gson" ,version.ref="retrofit"}
+timber                              = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
+coroutines                          = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+coroutines-android                  = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+sdp                                 = { module = "com.intuit.sdp:sdp-android", version.ref = "sdp" }
+ssp                                 = { module = "com.intuit.ssp:ssp-android", version.ref = "sdp" }
+utilcodex                           = { module = "com.blankj:utilcodex", version.ref = "utilcodex" }
+dataStore                           = { module = "androidx.datastore:datastore", version.ref = "dataStore" }
+dataStore-preferences               = { module = "androidx.datastore:datastore-preferences", version.ref = "dataStore" }
+viewpager2                          = { module = "androidx.viewpager2:viewpager2", version.ref = "viewpager2" }
+shimmerRecycler                     = { module = "com.github.sharish:ShimmerRecyclerView", version.ref = "shimmer" }
+banner                              = { module = "com.github.qfxl:Banner", version.ref = "banner" }
+navFragment                         = { module="androidx.navigation:navigation-fragment-ktx",version.ref="navigation" }
+navUi                               = { module="androidx.navigation:navigation-ui-ktx",version.ref="navigation" }
+pinview                             = { module = "io.github.chaosleung:pinview", version.ref = "pinview" }
+rxbinding                           = { module = "com.jakewharton.rxbinding4:rxbinding", version.ref = "rxbinding" }
+animatedPieView                     = { module = "com.github.razerdp:AnimatedPieView", version.ref = "animatedPieView" }
+sneaker                             = { module = "com.irozon.sneaker:sneaker", version.ref = "sneaker" }
+firebase-bom                        = { module = "com.google.firebase:firebase-bom",version.ref="firebase"}
+firebase_analytics                  = { module = "com.google.firebase:firebase-analytics"}
+firebase_messaging                  = { module = "com.google.firebase:firebase-messaging"}
+firebase_crashlytics                = { module = "com.google.firebase:firebase-crashlytics"}
+
+
+recaptcha                           = { module = "com.google.android.recaptcha:recaptcha", version.ref = "recaptcha_version" }
+patternLocker                       = { module = "com.andrognito.patternlockview:patternlockview-reactive",version.ref = "gestureLocker_version" }
+datePicker                          = { module = "ir.scriptestan.jalalimaterialdatetimepicker:library", version.ref = "datePicker_version" }
+toggle_button                       = { module = "nl.bryanderidder:themed-toggle-button-group", version.ref = "toggle_botton" }
+flexbox                             = { module = "com.google.android.flexbox:flexbox", version.ref = "flexbox_layout" }
+assentPermission_handler            = { module = "com.afollestad.assent:core", version.ref = "asssent_permission_version" }
+assentPermission_handler_rationales = { module = "com.afollestad.assent:rationales",version.ref = "asssent_permission_version" }
+easyImage                           = { module = "com.github.jkwiecien:EasyImage", version.ref = "easyImage_version" }
+compressor                          = { module = "id.zelory:compressor", version.ref = "compressor_version" }
+
+
+kotlin-serialization                = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlin-serialization" }
+kotlin-serialization-converter      = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "kotlin-serialization-converter" }
+lifecycle-viewmodel                 = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+
+# test libraries
+test-junit                          = { module = "junit:junit", version.ref = "test-junit" }
+
+android-junit                       = { module = "androidx.test.ext:junit", version.ref = "android-junit" }
+test-kotlin                         = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+test-kotlin-coroutines              = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+test-mockk                          = { module = "io.mockk:mockk", version.ref = "test-mockk" }
+
+# android test libraries
+test-android-hilt                   = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt" }
+test-android-hilt-compiler          = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
+test-android-runner                 = { module = "androidx.test:runner", version.ref = "test-android-runner" }
+espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
+
+
+
+
+
+[bundles]
+images = ["easyImage","compressor"]
+navigation=["navFragment","navUi"]
+coil=["coil","coil-svg"]
+firebase=["firebase_analytics","firebase_messaging","firebase_crashlytics"]
+coroutines=["coroutines","coroutines-android"]
+okhttp=["okhttp","okhttp-logging-interceptor"]
+sdp=["sdp","ssp"]
+gson=["gson","gson-converter"]
+dataStore=["dataStore","dataStore-preferences"]
+common-test = [
+    "test-kotlin",
+    "android-junit",
+    "test-kotlin-coroutines",
+    "test-mockk"
+]
+common-android-test = [
+    "test-android-hilt",
+    "test-android-runner"
+]

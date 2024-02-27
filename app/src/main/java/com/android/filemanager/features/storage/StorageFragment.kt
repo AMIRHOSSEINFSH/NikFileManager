@@ -1,29 +1,40 @@
 package com.android.filemanager.features.storage
 
 import android.animation.ObjectAnimator
+import android.content.Context
 import android.content.Intent
+import android.hardware.usb.UsbManager
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.util.Log
+import android.text.TextUtils
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getExternalFilesDirs
 import androidx.core.content.FileProvider
-import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.amirhosseinfsh.common.base.BaseFragment
+import com.amirhosseinfsh.viewBinding.viewBinding
 import com.android.filemanager.R
-import com.android.filemanager.core.*
+import com.android.filemanager.core.SHOW_MIMETYPE
+import com.android.filemanager.core.StorageHelper
+import com.android.filemanager.core.UNKNOWN_ERROR
 import com.android.filemanager.databinding.FragmentStorageBinding
 import com.android.filemanager.features.mimType.MimTypesActivity
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import java.io.File
 
 
 @AndroidEntryPoint
-class StorageFragment : BaseFragment<FragmentStorageBinding>(R.layout.fragment_storage) {
+class StorageFragment : BaseFragment(R.layout.fragment_storage) {
+
+    private val binding: FragmentStorageBinding by viewBinding(FragmentStorageBinding::bind)
 
     private val viewModel: StorageViewModel by activityViewModels()
 
@@ -41,7 +52,7 @@ class StorageFragment : BaseFragment<FragmentStorageBinding>(R.layout.fragment_s
                 )
                 startActivity(intent)
             } catch (e: Exception) {
-                showMessage(e.message ?: UNKNOWN_ERROR)
+                (e.message ?: UNKNOWN_ERROR)
             }
         }
     }
@@ -49,7 +60,6 @@ class StorageFragment : BaseFragment<FragmentStorageBinding>(R.layout.fragment_s
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         initSetUp()
         setUpAdapters()
@@ -79,8 +89,62 @@ class StorageFragment : BaseFragment<FragmentStorageBinding>(R.layout.fragment_s
         }
     }
 
+    val SD_CARD = "sdCard"
+    val EXTERNAL_SD_CARD = "externalSdCard"
+    private val ENV_SECONDARY_STORAGE = "SECONDARY_STORAGE"
 
+    fun getAllStorageLocations(): Map<String, File>? {
+        val storageLocations: MutableMap<String, File> = HashMap(10)
+        val sdCard = Environment.getExternalStorageDirectory()
+        storageLocations[SD_CARD] = sdCard
+        val rawSecondaryStorage = System.getenv(ENV_SECONDARY_STORAGE)
+        if (!TextUtils.isEmpty(rawSecondaryStorage)) {
+            val externalCards =
+                rawSecondaryStorage.split(":".toRegex()).dropLastWhile { it.isEmpty() }
+                    .toTypedArray()
+            for (i in externalCards.indices) {
+                val path = externalCards[i]
+                storageLocations[EXTERNAL_SD_CARD + String.format(if (i == 0) "" else "_%d", i)] =
+                    File(path)
+            }
+        }
+        return storageLocations
+    }
     private fun initSetUp() {
+
+
+        val d =getExternalFilesDirs(requireContext(),null)
+        //val dire = Sto.getAllStorages(requireContext())
+        val f = getExternalFilesDirs(requireContext(), null)
+        for (i in f.indices) {
+            val path: String? =
+                f[i].parent?.replace("/Android/data/", "")?.replace(requireContext().packageName, "")
+            Timber.tag("DIRS").i(path)
+        }
+
+        val manager = requireContext().getSystemService(Context.USB_SERVICE) as UsbManager
+        val deviceList= manager.deviceList
+        val acce = manager.accessoryList
+
+        val nameList = getExternalFilesDirs(requireContext(),null).first().list()
+        val remo = Environment.isExternalStorageRemovable()
+        val emulated=  Environment.isExternalStorageEmulated()
+        val externalStorage: String = Environment.getExternalStorageState()
+        if (Environment.MEDIA_MOUNTED_READ_ONLY == externalStorage) {
+            //do anything
+        } else {
+            // show error message
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val state=  Environment.getStorageDirectory()
+            val legacy=  Environment.isExternalStorageLegacy()
+            val manager = Environment.isExternalStorageManager()
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+
+            val names = MediaStore.getExternalVolumeNames(requireContext())
+            Timber.tag("VOLUME_NAMES").i(names.toString())
+        }
         val list: List<String> = if (viewModel.isExternalMemoryAvailable()) {
             listOf(getString(R.string.internal), getString(R.string.external))
         } else {

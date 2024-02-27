@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--region CardView Styles-->
+    <style name="cardItemNoElevationFullCornerStyle">
+        <item name="cardElevation">0dp</item>
+        <item name="materialThemeOverlay">@style/ThemeOverlay.MyApp.ElevationOverlayDisabled</item>
+        <item name="cardCornerRadius">@dimen/radius_corner_default</item>
+        <item name="cardBackgroundColor">@color/blue_grey_alpha_40</item>
+    </style>
+
+    <style name="DarkCardView" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="cardElevation">0dp</item>
+        <item name="cardCornerRadius">@dimen/radius_corner_default</item>
+        <item name="cardBackgroundColor">@color/blue_grey_alpha_70</item>
+
+    </style>
+
+
+    <style name="CustomCardViewStyleElevation" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="cardElevation">0dp</item>
+        <item name="cardCornerRadius">@dimen/radius_corner_default</item>
+        <item name="cardBackgroundColor">@color/blue_grey_alpha_90</item>
+        <item name="divider">@android:color/transparent</item>
+        <item name="android:dividerHeight">0.0dp</item>
+        <item name="android:clipToPadding">false</item>
+        <item name="android:clipChildren">false</item>
+        <item name="cardPreventCornerOverlap">false</item>
+    </style>
+
+    <style name="CustomCardViewStyleTop" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/blue_grey_alpha_70</item>
+        <item name="cardElevation">0dp</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_card_custom_corners_top
+        </item>
+    </style>
+
+    <style name="CustomCardViewStyleTopElevation" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/blue_grey_alpha_70</item>
+        <item name="cardElevation">@dimen/bold_card_elevation</item>
+        <item name="divider">@android:color/transparent</item>
+        <item name="android:dividerHeight">0.0dp</item>
+        <item name="android:clipToPadding">false</item>
+        <item name="android:clipChildren">false</item>
+        <item name="cardPreventCornerOverlap">false</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_card_custom_corners_top
+        </item>
+    </style>
+
+    <style name="CustomCardViewStyleBottom" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/blue_grey_alpha_70</item>
+        <item name="cardElevation">0dp</item>
+        <item name="shapeAppearanceOverlay">
+            @style/ShapeAppearanceOverlay_card_custom_corners_bottom
+        </item>
+    </style>
+
+    <style name="CustomCardViewStyleNonCorner" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_card_custom_not_corners
+        </item>
+        <item name="cardBackgroundColor">@color/blue_grey_alpha_70</item>
+        <item name="cardElevation">0dp</item>
+    </style>
+
+
+    <style name="customCardViewFullCornerDark" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="cardElevation">0dp</item>
+        <item name="materialThemeOverlay">@style/ThemeOverlay.MyApp.ElevationOverlayDisabled</item>
+        <item name="cardCornerRadius">@dimen/radius_corner_default</item>
+        <item name="cardBackgroundColor">@color/blue_grey_alpha_70</item>
+    </style>
+
+
+    <!--endregion-->
+
+    <!--region TabLayout Styles-->
+    <style name="DarkTabLayout" parent="MyTabLayout">
+        <item name="tabTextColor">@color/grayTv</item>
+        <item name="tabSelectedTextColor">@color/white</item>
+        <item name="background">@null</item>
+        <item name="rippleColor">@null</item>
+    </style>
+    <!--endregion-->
+
+
+
+
+</resources>

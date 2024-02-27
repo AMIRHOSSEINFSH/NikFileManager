@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="access_storage_prompt">لطفا دسترسی لازم به فایل های دستگاه را فراهم کنید.بدون آن برنامه به درستی کار نمی کند!</string>
+    <string name="yes">بله</string>
+    <string name="no">خیر</string>
+
+
+    <string name="internal">داخلی</string>
+    <string name="usb">دستگاه Usb</string>
+    <string name="sd">کارت Sd</string>
+
+</resources>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!--region Custom Colors-->
+    <color name="default_bg_color">@color/white</color>
+    <color name="card_bottom_color">#9929344E</color>
+    <color name="color_bg_card_referral_link">#66464A56</color>
+    <color name="grey_alpha_20">@color/blue_grey_alpha_20</color>
+    <color name="grey_alpha_100">@color/blue_grey_alpha_100</color>
+    <color name="blue_grey_alpha_90">#3F434D</color>
+    <color name="blue_grey_alpha_80">#515562</color>
+    <color name="blue_grey_alpha_70">#2C313B</color>
+    <color name="blue_grey_alpha_75">#353945</color>
+    <color name="blue_grey_alpha_65">#607D8B</color>
+    <color name="blue_grey_alpha_60">#9929344E</color>
+    <color name="blue_grey_alpha_40">#6629344E</color>
+    <color name="blue_grey_80" tools:ignore="MissingDefaultResource">#1CF7FF</color>
+    <color name="blue_grey_dark_shade" tools:ignore="MissingDefaultResource">#262A33</color>
+    <color name="green_light">@color/blue_grey_alpha_100</color>
+    <color name="green_lighter">@color/blue_grey_alpha_100</color>
+    <color name="green_lighter2">@color/blue_grey_alpha_100</color>
+    <color name="color_bg_auth_top">#383842</color>
+    <color name="color_bg_auth_down">#292a34</color>
+    <color name="bg_tab_vip">@color/blue_grey_alpha_75</color>
+    <color name="slate_gray">#8A8C93</color>
+    <color name="color_bg_auth">#2b2c35</color>
+    <color name="color_bg_auth_corner">#34353f</color>
+    <color name="bg_txt_layout">@color/blue_grey_alpha_90</color>
+    <color name="color_icon">@color/blue_grey_alpha_65</color>
+    <!--endregion-->
+
+    <!--region TextView Style colors-->
+    <color name="lightTextViewColor">@color/grayTv</color>
+    <color name="regularTextViewColor">@color/grayTv</color>
+    <color name="boldTextViewColor">@color/white</color>
+    <!--endregion-->
+
+    <!--region EditText Styles colors-->
+    <color name="mtrl_textinput_default_box_stroke_color">@color/mako</color>
+    <color name="strokeColor">@color/mako</color>
+    <color name="editText_textColor">@color/black</color>
+    <!--endregion-->
+</resources>

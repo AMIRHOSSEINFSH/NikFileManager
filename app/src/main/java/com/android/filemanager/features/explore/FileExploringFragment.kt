@@ -45,10 +45,10 @@ class FileExploringFragment :
                 if (shouldNavigate) {
                     viewModel.doOnDataList(ActionOnList.ADD(fileModel.path))
                     //viewModel.addNewPath(fileModel.name)
-                    findNavController().navigate(
+                    /*findNavController().navigate(
                         FileExploringFragmentDirections.actionFileExploringFragmentSelf()
                             .setPath(fileModel.path)
-                    )
+                    )*/
                 }
             } else {
                 try {
@@ -86,7 +86,7 @@ class FileExploringFragment :
                 override fun handleOnBackPressed() {
                     if (!viewModel.processIsWorking) {
                         //todo if backQueue.size is root so:
-                        if (findNavController().backQueue.size != 2) {
+                        if (findNavController().currentBackStack.value.size != 2) {
                             //todo if you are not in root && there are some items that checked it will clear it instead of pop and back navigate
                             if (viewModel.isSelected.value!!.isNotEmpty()) {
                                 viewModel.emitOnAllViewSelected(true)
